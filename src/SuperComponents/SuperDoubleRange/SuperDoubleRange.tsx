@@ -1,4 +1,4 @@
-import s from '../c7-SuperRange/SuperRange.module.css'
+import s from '../SuperRange/SuperRange.module.css'
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes} from 'react'
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
