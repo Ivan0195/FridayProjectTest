@@ -1,0 +1,44 @@
+.numberValue {
+    display: flex;
+}
+
+.minValue {
+    width: 100px;
+}
+
+.maxValue {
+    width: 100px;
+    margin-left: 50px;
+}
+
+.range_input {
+    margin-left: 23px;
+    position: relative;
+}
+
+.slider {
+    top: 12px;
+    margin-left: 30px;
+    height: 5px;
+    width: 120px;
+    position: relative;
+    background: #313133;
+    border-radius: 5px;
+}
+
+.range_input input {
+    position: absolute;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    height: 15px;
+    width: 15px;
+    background: rgb(11, 149, 232);
+    pointer-events: auto;
+}
+
+
