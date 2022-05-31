@@ -37,6 +37,17 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
         })
 }
 
+export const logoutTC = () => (dispatch: Dispatch) => {
+    loginAPI.logout()
+        .then(res => {dispatch(isLoggedInAC(""))})
+        .catch(err => {
+        const error = err.response
+        dispatch(setErrorAC(error
+            ? err.response.data.error
+            : (err.message + ', more details in the console')))
+    })
+}
+
 //Reducer
 export const loginReducer = (state: LoginInitialStateType = initialState, action: LoginActionsType): LoginInitialStateType => {
     switch (action.type) {

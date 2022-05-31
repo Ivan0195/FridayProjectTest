@@ -8,10 +8,15 @@ import Registration from "./Pages/RegistrationPage/Registration";
 import PasswordReset from "./Pages/PasswordResetPage/PasswordReset";
 import NewPassword from "./Pages/NewPasswordPage/NewPassword";
 import Test from "./Pages/TestPage/Test";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "./bll/store";
+import Header from "./Pages/Header/Header";
 
 function App() {
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
     return (
         <div>
+            {isLoggedIn && <Header/>}
             <Routes>
                 <Route path="profile" element={<Profile/>}/>
                 <Route path="login" element={<Login/>}/>
