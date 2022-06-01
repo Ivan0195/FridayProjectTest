@@ -9,7 +9,7 @@ import SuperDoubleRange from "../../SuperComponents/SuperDoubleRange/SuperDouble
 const Test = () => {
     return (
         <div>
-            <SuperButton/>
+            <SuperButton />
             <SuperCheckbox/>
             <SuperSelect/>
             <SuperRadio/>

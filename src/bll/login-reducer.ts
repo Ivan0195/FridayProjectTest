@@ -1,44 +1,96 @@
-import { SignInPayloadType } from '../types/requestTypes';
-import { Dispatch } from 'redux';
-import { authService } from '../services/authService';
-import { AxiosError } from 'axios';
-import { ErrorResponseType, UserType } from '../types/responseTypes';
-import { handleNetworkError } from '../utils/errorUtils';
-import { AppRootStateType } from './store';
+import {loginAPI, LoginResponseType} from "../api/login-api";
+import {Dispatch} from "redux";
+import {store} from "./store";
+import {setAppStatusAC} from "./common-app-reducer";
 
-type InitialStateType = {
-    user: null | UserType;
+const initialState = {
+    userData: {} as LoginResponseType,
+    isLoggedIn: false,
+    error: "" as string | null,
+    authMeError: "" as string | null
 }
 
-const initialState: InitialStateType = {
-    user: null,
+//types
+export type LoginInitialStateType = typeof initialState;
+type SetUserDataActionType = ReturnType<typeof setUserDataAC>
+type SetErrorActionType = ReturnType<typeof setErrorAC>
+type SetAuthMeErrorActionType = ReturnType<typeof setAuthMeErrorAC>
+type IsLoggedInActionType = ReturnType<typeof isLoggedInAC>
+export type LoginActionsType = SetUserDataActionType | SetErrorActionType | IsLoggedInActionType | SetAuthMeErrorActionType
+export type AppDispatch = typeof store.dispatch
+
+//Action Creators\
+export const setUserDataAC = (userData: LoginResponseType) => ({type: 'LOGIN/SET-USER-DATA', userData} as const)
+export const setErrorAC = (error: string | null) => ({type: 'LOGIN/SET-ERROR', error} as const)
+export const setAuthMeErrorAC = (error: string | null) => ({type: 'LOGIN/SET-AUTH-ME-ERROR', error} as const)
+export const isLoggedInAC = (email: string) => ({type: 'LOGIN/IS-LOGGED-IN', email} as const)
+
+//Thunk Creators
+export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: AppDispatch) => {
+    dispatch(setAppStatusAC('pending'))
+    loginAPI.login(email, password, rememberMe)
+        .then(res => {
+                dispatch(setUserDataAC(res.data))
+                dispatch(isLoggedInAC(res.data.email))
+                dispatch(setAppStatusAC('successful'))
+            }
+        )
+        .catch(err => {
+            dispatch(setAppStatusAC("failed"))
+            const error = err.response
+            dispatch(setErrorAC(error
+                ? err.response.data.error
+                : (err.message + ', more details in the console')))
+        })
 }
 
-export const setUser = (user: UserType) => ({
-    type: 'auth/setUser',
-    payload: { user }
-} as const);
+export const logoutTC = () => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('pending'))
+    loginAPI.logout()
+        .then(res => {
+            dispatch(isLoggedInAC(""))
+            dispatch(setAppStatusAC('successful'))
+            dispatch(setErrorAC(''))
+        })
+        .catch(err => {
+            dispatch(setAppStatusAC("failed"))
+            const error = err.response
+            dispatch(setErrorAC(error
+                ? err.response.data.error
+                : (err.message + ', more details in the console')))
+        })
+}
 
-export const login = (payload: SignInPayloadType) => async (dispatch: Dispatch<ActionsType>) => {
-    try {
-        const response = await authService.login(payload);
-        dispatch(setUser(response.data));
-    } catch (e) {
-        const err = e as AxiosError<ErrorResponseType>;
-        handleNetworkError(err);
-    }
-};
+export const authTC = () => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('pending'))
+    loginAPI.me()
+        .then(res => {
+            dispatch(setUserDataAC(res.data))
+            dispatch(isLoggedInAC(res.data.email))
+            dispatch(setAppStatusAC('successful'))
+        })
+        .catch(err => {
+            dispatch(setAppStatusAC("failed"))
+            const error = err.response
+            dispatch(setAuthMeErrorAC(error
+                ? err.response.data.error
+                : (err.message + ', more details in the console')))
+        })
+}
 
-export type ActionsType = ReturnType<typeof setUser>;
-
-export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+//Reducer
+export const loginReducer = (state: LoginInitialStateType = initialState, action: LoginActionsType): LoginInitialStateType => {
     switch (action.type) {
-        case 'auth/setUser':
-            return { ...state, user: action.payload.user }
+        case 'LOGIN/SET-USER-DATA':
+            return {...state, userData: action.userData}
+        case 'LOGIN/SET-ERROR':
+            return {...state, error: action.error}
+        case 'LOGIN/SET-AUTH-ME-ERROR':
+            return {...state, authMeError: action.error}
+        case 'LOGIN/IS-LOGGED-IN':
+            return {...state, isLoggedIn: !!action.email}
         default:
             return {...state}
     }
-};
-
-export const getUser = (state: AppRootStateType) => state.auth.user;
+}
 

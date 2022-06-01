@@ -55,10 +55,13 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = (
                 onKeyPress={onKeyPressCallback}
                 className={cn(s.fieldInput, inputClassName)}
 
+                className={finalInputClassName}
                 {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
             />
             {error && <span className={cn(s.fieldError, spanClassName)}>{error}</span>}
         </div>
+            {error && <span className={finalSpanClassName}></span>}
+        </form>
     );
 }
 
