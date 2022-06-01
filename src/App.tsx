@@ -22,7 +22,7 @@ function App() {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
     const appStatus = useSelector<AppRootStateType, AppStatusType>(state => state.appStatus.requestStatus)
-    const error = useSelector<AppRootStateType, string | null>(state => state.login.error)
+    const authMeError = useSelector<AppRootStateType, string | null>(state => state.login.authMeError)
     const dispatch = useTypedDispatch()
 
     if (appStatus === 'pending') {
