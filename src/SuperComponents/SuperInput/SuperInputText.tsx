@@ -1,5 +1,6 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent} from 'react';
 import s from './SuperInputText.module.css';
+import cn from 'classnames';
 
 // тип пропсов обычного инпута
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
@@ -11,6 +12,9 @@ type SuperInputTextPropsType = DefaultInputPropsType & { // и + ещё проп
     onEnter?: () => void
     error?: string
     spanClassName?: string
+    inputClassName?: string
+    labelClassName?: string
+    label?: string
 };
 
 const SuperInputText: React.FC<SuperInputTextPropsType> = (
@@ -19,8 +23,11 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = (
         onChange, onChangeText,
         onKeyPress, onEnter,
         error,
-        className, spanClassName,
-
+        className,
+        inputClassName,
+        spanClassName,
+        labelClassName,
+        label,
         ...restProps// все остальные пропсы попадут в объект restProps
     }
 ) => {
@@ -38,22 +45,20 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = (
         && onEnter(); // то вызвать его
     }
 
-    const finalSpanClassName = `${s.error} ${error ? s.error : spanClassName}`;
-    const finalInputClassName = `${className} ${error ? s.errorInput : s.superInput}`; // need to fix with (?:) and
-    // s.superInput
-    console.log(restProps.value)
     return (
-        <form>
+        <div className={cn(s.field, className)}>
+            { label && <label className={cn(s.fieldLabel, labelClassName)} htmlFor={restProps.name}>{ label }</label> }
             <input
-                type={'text'}
+                id={restProps.name}
+                type={type}
                 onChange={onChangeCallback}
                 onKeyPress={onKeyPressCallback}
-                className={finalInputClassName}
+                className={cn(s.fieldInput, inputClassName)}
 
                 {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
             />
-            {error && <span className={finalSpanClassName}>{error}</span>}
-        </form>
+            {error && <span className={cn(s.fieldError, spanClassName)}>{error}</span>}
+        </div>
     );
 }
 

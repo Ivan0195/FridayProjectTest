@@ -1,0 +1,40 @@
+.title {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.fieldsWrapper {
+  margin-bottom: 50px;
+}
+
+.field:not(:last-child) {
+  margin-bottom: 25px;
+}
+
+.forgotLink {
+  display: block;
+  margin-bottom: 90px;
+  padding-right: 15px;
+  font-size: 14px;
+  text-align: right;
+  color: #2D2E46;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.forgotLink:hover {
+  color: #000000;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  width: 80%;
+}
+
+.button:disabled {
+  opacity: 0.5;
+}

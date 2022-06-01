@@ -1,13 +1,47 @@
-//types
-type InitialStateType = typeof initialState
+import { authService } from '../services/authService';
+import { AxiosError } from 'axios';
+import { SignUpPayloadType } from '../types/requestTypes';
+import { ErrorResponseType } from '../types/responseTypes';
+import { AppRootStateType } from './store';
+import { handleNetworkError } from '../utils/errorUtils';
+import { Dispatch } from 'redux';
 
-type ActionsType = any
+type StatusesType = 'pending' | 'success';
 
-const initialState = {}
+type InitialStateType = {
+    status: StatusesType;
+}
+
+const initialState: InitialStateType = {
+    status: 'pending',
+}
+
+export const setRegistrationStatus = (status: StatusesType) => ({
+    type: 'register/setRegistrationStatus',
+    payload: { status },
+} as const);
+
+export const registerUser = (payload: SignUpPayloadType) => async (dispatch: Dispatch<ActionsType>) => {
+    try {
+        await authService.register(payload);
+        dispatch(setRegistrationStatus('success'));
+    } catch (e) {
+        const err = e as AxiosError<ErrorResponseType>;
+        handleNetworkError(err);
+    }
+};
+
+export type ActionsType = ReturnType<typeof setRegistrationStatus>;
 
 export const registrationReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
+        case 'register/setRegistrationStatus':
+            return { ...state, status: action.payload.status };
         default:
             return {...state}
     }
 }
+
+export const getRegistrationStatus = (state: AppRootStateType) => state.registration.status;
+
+

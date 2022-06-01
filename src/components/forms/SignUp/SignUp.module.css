@@ -1,0 +1,25 @@
+.title {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.fieldsWrapper {
+  margin-bottom: 50px;
+}
+
+.field:not(:last-child) {
+  margin-bottom: 25px;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  width: 40%;
+}
+
+.button:disabled {
+  opacity: 0.5;
+}
