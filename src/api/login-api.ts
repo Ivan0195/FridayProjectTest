@@ -15,6 +15,9 @@ export const loginAPI = {
     logout() {
         return instance.delete("/auth/me")
     },
+    me() {
+        return instance.post<LoginResponseType>("/auth/me", {})
+    },
 }
 
 //types

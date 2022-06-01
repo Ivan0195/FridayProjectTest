@@ -4,16 +4,18 @@ import {LoginActionsType, loginReducer} from "./login-reducer";
 import {registrationReducer} from "./registration-reducer";
 import {profileReducer} from "./profile-reducer";
 import {useDispatch} from "react-redux";
+import {appStatusReducer, SetAppStatusActionType} from "./common-app-reducer";
 
 const rootReducer = combineReducers({
     login: loginReducer,
     registration: registrationReducer,
     profile: profileReducer,
+    appStatus: appStatusReducer,
 })
 export const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
-export type AppActionType = LoginActionsType // сюда нужно дописать общий тип для вашего редьюсера
+export type AppActionType = LoginActionsType | SetAppStatusActionType // сюда нужно дописать общий тип для вашего редьюсера
 export type AppDispatch = typeof store.dispatch;
 export type TypedDispatch = ThunkDispatch<AppRootStateType, any, AppActionType>;
 

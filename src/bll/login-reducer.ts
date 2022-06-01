@@ -1,6 +1,7 @@
 import {loginAPI, LoginResponseType} from "../api/login-api";
 import {Dispatch} from "redux";
 import {store} from "./store";
+import {setAppStatusAC} from "./common-app-reducer";
 
 const initialState = {
     userData: {} as LoginResponseType,
@@ -23,13 +24,16 @@ export const isLoggedInAC = (email: string) => ({type: 'LOGIN/IS-LOGGED-IN', ema
 
 //Thunk Creators
 export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: AppDispatch) => {
+    dispatch(setAppStatusAC('pending'))
     loginAPI.login(email, password, rememberMe)
         .then(res => {
                 dispatch(setUserDataAC(res.data))
                 dispatch(isLoggedInAC(res.data.email))
+                dispatch(setAppStatusAC('successful'))
             }
         )
         .catch(err => {
+            dispatch(setAppStatusAC("failed"))
             const error = err.response
             dispatch(setErrorAC(error
                 ? err.response.data.error
@@ -38,14 +42,36 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
 }
 
 export const logoutTC = () => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('pending'))
     loginAPI.logout()
-        .then(res => {dispatch(isLoggedInAC(""))})
+        .then(res => {
+            dispatch(isLoggedInAC(""))
+            dispatch(setAppStatusAC('successful'))
+        })
         .catch(err => {
-        const error = err.response
-        dispatch(setErrorAC(error
-            ? err.response.data.error
-            : (err.message + ', more details in the console')))
-    })
+            dispatch(setAppStatusAC("failed"))
+            const error = err.response
+            dispatch(setErrorAC(error
+                ? err.response.data.error
+                : (err.message + ', more details in the console')))
+        })
+}
+
+export const authTC = () => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('pending'))
+    loginAPI.me()
+        .then(res => {
+            dispatch(setUserDataAC(res.data))
+            dispatch(isLoggedInAC(res.data.email))
+            dispatch(setAppStatusAC('successful'))
+        })
+        .catch(err => {
+            dispatch(setAppStatusAC("failed"))
+            const error = err.response
+            dispatch(setErrorAC(error
+                ? err.response.data.error
+                : (err.message + ', more details in the console')))
+        })
 }
 
 //Reducer
