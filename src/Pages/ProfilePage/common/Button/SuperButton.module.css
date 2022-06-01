@@ -1,0 +1,30 @@
+.default {
+    transition: background-color 0.3s;
+    background: #D7D8EF;
+    border-radius: 30px;
+    width: 124px;
+    height: 36px;
+    border: none;
+
+    color: #21268F;
+    opacity: 0.8;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.default:hover:not(:disabled) {
+    background: #21268F;
+    color: #ECECF9;
+    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+
+.red {
+    background: red;
+}
+
+.red:hover:not(:disabled) {
+    background-color: darkred;
+}

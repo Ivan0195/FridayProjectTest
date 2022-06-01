@@ -1,0 +1,31 @@
+.itemWrapper {
+    text-decoration: none;
+    background: #EBE0E9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 173px;
+    color: rgba(45, 46, 70, 1);
+    opacity: 0.4
+}
+
+.icon {
+    height: 36px;
+    width: 36px;
+    left: 34px;
+    top: 12px;
+}
+
+.itemText {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    letter-spacing: 0.4px;
+}
+
+.active {
+    background: #DCCCDB;
+    border-bottom: 3px solid #21268F;
+    opacity: 1;
+}
