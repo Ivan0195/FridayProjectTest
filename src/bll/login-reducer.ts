@@ -1,6 +1,6 @@
 import {loginAPI, LoginResponseType} from "../api/login-api";
 import {Dispatch} from "redux";
-import {store} from "./store";
+import { AppRootStateType, store } from "./store";
 import {setAppStatusAC} from "./common-app-reducer";
 
 const initialState = {
@@ -94,3 +94,4 @@ export const loginReducer = (state: LoginInitialStateType = initialState, action
     }
 }
 
+export const getUserData = (state: AppRootStateType) => state.login.userData;

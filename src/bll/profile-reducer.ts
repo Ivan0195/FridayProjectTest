@@ -28,7 +28,7 @@ export const setError = (error: string) => ({type: 'PROFILE/SET-ERROR', error} a
 const updateData = (payload: UpdatingDataType) => ({type: 'PROFILE/UPDATE-DATA', payload} as const)
 // reducer
 const initialState = {
-    isAuthorized: true, //заглушка, поменять на false
+    isAuthorized: false, //заглушка, поменять на false
     name: '',
     email: '',
     avatar: '' as null | string,

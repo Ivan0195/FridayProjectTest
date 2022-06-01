@@ -8,7 +8,7 @@ import { ReactComponent as OnEye } from '../../../assets/images/iconmonstr-eye-9
 import { ReactComponent as OffEye } from '../../../assets/images/iconmonstr-eye-10.svg';
 import { SignUpPayloadType } from '../../../types/requestTypes';
 import { ClassNameType } from '../../../types/common';
-import { useAppDispatch, useAppSelector } from '../../../bll/store';
+import { useTypedDispatch, useAppSelector } from '../../../bll/store';
 import styles from './SignUp.module.css';
 import {
   getRegistrationStatus,
@@ -25,7 +25,7 @@ const schema = Yup.object<Record<keyof SignUpPayloadType, Yup.AnySchema>>({
 });
 
 export const SignUp: React.FC<ClassNameType> = ({ className }) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useTypedDispatch();
   const navigate = useNavigate();
   const registrationStatus = useAppSelector(getRegistrationStatus);
   const [showPassword, setShowPassword] = useState(false);

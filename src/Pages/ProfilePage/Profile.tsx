@@ -7,12 +7,16 @@ import {initializeProfileTC, InitialStateType, setError, updateInitializingDataT
 import SuperButton from "./common/Button/SuperButton";
 import {Input} from "./common/Input/Input";
 import {Header} from "./common/Header/Header";
+import { getUserData } from '../../bll/login-reducer';
+import { LoginResponseType } from '../../api/login-api';
 
 const Profile = () => {
-    const profile = useSelector<AppRootStateType, InitialStateType>(state => state.profile)
+    const user = useSelector<AppRootStateType, LoginResponseType>(getUserData);
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
+
     const dispatch = useTypedDispatch()
 
-    const [name, setName] = useState<string>(profile.name)
+    const [name, setName] = useState<string>(user.name)
 
 
     useEffect(() => {
@@ -20,19 +24,19 @@ const Profile = () => {
     }, [])
 
     useEffect(() => {
-      if(profile.error) {
+      if(user.error) {
           let id = setTimeout(() => {
               dispatch(setError(''));
           }, 3000)
           return () => clearTimeout(id)
       }
-    },[profile.error])
+    },[user.error])
 
     const onSaveHandler = () => {
         dispatch(updateInitializingDataTC({name}))
     }
     const onCancelHandler = () => {
-        setName(profile.name)
+        setName(user.name)
     }
 
     const onChangeHandler = (name: string) => {
@@ -40,7 +44,7 @@ const Profile = () => {
     }
 
 
-    if (!profile.isAuthorized) {
+    if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }
     return (
@@ -50,17 +54,17 @@ const Profile = () => {
                 <h2 className={s.title}>Personal Information</h2>
                 <div className={s.imgContainer}>
                     <img alt={'Photo'}
-                         src={profile.avatar ? profile.avatar : 'https://cyberpsy.ru/wp-content/uploads/2017/10/cyberpsy_post_image_80-1024x683.jpg'}/>
+                         src={user.avatar ? user.avatar : 'https://cyberpsy.ru/wp-content/uploads/2017/10/cyberpsy_post_image_80-1024x683.jpg'}/>
                 </div>
                 <div className={s.inputForm}>
                     <Input inputName={'Nickname'} onChange={onChangeHandler} value={name}/>
-                    <Input inputName={'Email'} disabled value={profile.email}/>
+                    <Input inputName={'Email'} disabled value={user.email}/>
                 </div>
                 <div className={s.buttons}>
                     <SuperButton onClick={onCancelHandler}>Cancel</SuperButton>
                     <SuperButton onClick={onSaveHandler}>Save</SuperButton>
                 </div>
-                {profile.error && <div className={s.error}>{profile.error}</div>}
+                {user.error && <div className={s.error}>{user.error}</div>}
             </div>
         </div>
     );

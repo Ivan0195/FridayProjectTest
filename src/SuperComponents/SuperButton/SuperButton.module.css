@@ -1,12 +1,4 @@
 .default {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    line-height: 1.5;
-    color: #ffffff;
-    background-color: #21268F;
-    cursor: pointer;
-    transition: 0.2s;
     background: #21268F;
     box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
     border-radius: 30px;
@@ -26,27 +18,7 @@
     border: none;
 }
 
-.silver {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    line-height: 1.5;
-    color: #21268F;
-    background-color: #D7D8EF;
 .default:hover {
     cursor: pointer;
-    transition: 0.2s;
-}
-
-.default:hover, .default:focus, .silver:hover, .silver:focus {
-    outline: 0;
-}
-
-.default:hover, .silver:hover {
-    box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
     background: #535bee;
-}
-
-.default:disabled, .silver:disabled {
-    opacity: 0.5;
 }

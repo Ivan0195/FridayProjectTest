@@ -1,4 +1,4 @@
-import { api } from './axios';
+import { api } from '../api/axios';
 import { AxiosResponse } from 'axios';
 import { SignInPayloadType, SignUpPayloadType } from '../types/requestTypes';
 import { UserType } from '../types/responseTypes';
