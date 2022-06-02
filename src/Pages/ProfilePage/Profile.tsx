@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import s from "./Profile.module.css"
 import {useSelector} from "react-redux";
 import {AppRootStateType, useTypedDispatch} from "../../bll/store";
 import {Navigate} from 'react-router-dom';
-import {updateInitializingDataTC} from "../../bll/profile-reducer";
 import SuperButton from "./common/Button/SuperButton";
 import {Input} from "./common/Input/Input";
-import {authTC, getUserData} from '../../bll/login-reducer';
+import {getUserData, updateInitializingDataTC} from '../../bll/login-reducer';
 import {UserResponseType} from "../../types/responseTypes";
 
 const Profile = () => {
