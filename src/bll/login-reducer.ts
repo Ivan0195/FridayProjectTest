@@ -4,6 +4,8 @@ import {setAppStatusAC} from "./common-app-reducer";
 import {handleNetworkError} from "../utils/errorUtils";
 import {UserResponseType} from "../types/responseTypes";
 import {authApi} from "../api/auth-api";
+import {UpdatingProfilePayloadType} from "../types/requestTypes";
+import {toast} from "react-toastify";
 
 const initialState = {
     userData: {} as UserResponseType,
@@ -18,7 +20,11 @@ type SetUserDataActionType = ReturnType<typeof setUserDataAC>
 type SetErrorActionType = ReturnType<typeof setErrorAC>
 type SetAuthMeErrorActionType = ReturnType<typeof setAuthMeErrorAC>
 type IsLoggedInActionType = ReturnType<typeof isLoggedInAC>
-export type LoginActionsType = SetUserDataActionType | SetErrorActionType | IsLoggedInActionType | SetAuthMeErrorActionType
+export type LoginActionsType =
+    SetUserDataActionType
+    | SetErrorActionType
+    | IsLoggedInActionType
+    | SetAuthMeErrorActionType
 export type AppDispatch = typeof store.dispatch
 
 //Action Creators\
@@ -82,6 +88,19 @@ export const authTC = () => (dispatch: Dispatch) => {
             handleNetworkError(err);
         })
 }
+
+export const updateInitializingDataTC = (payload: UpdatingProfilePayloadType) =>
+    (dispatch: Dispatch) => {
+        authApi.updateMe(payload)
+            .then(res => {
+                    dispatch(setUserDataAC(res.data))
+                    toast.success('Data successfully updated')
+                }
+            )
+            .catch(e => {
+                handleNetworkError(e)
+            })
+    }
 
 //Reducer
 export const loginReducer = (state: LoginInitialStateType = initialState, action: LoginActionsType): LoginInitialStateType => {
