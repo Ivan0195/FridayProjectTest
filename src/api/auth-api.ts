@@ -16,8 +16,8 @@ export const authApi = {
     me: '/auth/me',
     forgot: '/auth/forgot',
   },
-  async register(payload: SignUpPayloadType): Promise<AxiosResponse> {
-    return await api.post<SignUpPayloadType, AxiosResponse>(
+  register(payload: SignUpPayloadType): Promise<AxiosResponse> {
+    return api.post<SignUpPayloadType, AxiosResponse>(
       this.endpoints.register,
       payload,
     );
