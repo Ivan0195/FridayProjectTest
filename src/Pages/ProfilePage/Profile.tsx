@@ -3,15 +3,15 @@ import s from "./Profile.module.css"
 import {useSelector} from "react-redux";
 import {AppRootStateType, useTypedDispatch} from "../../bll/store";
 import {Navigate} from 'react-router-dom';
-import {initializeProfileTC, InitialStateType, setError, updateInitializingDataTC} from "../../bll/profile-reducer";
+import {initializeProfileTC, setError, updateInitializingDataTC} from "../../bll/profile-reducer";
 import SuperButton from "./common/Button/SuperButton";
 import {Input} from "./common/Input/Input";
 import {Header} from "./common/Header/Header";
-import { getUserData } from '../../bll/login-reducer';
-import { LoginResponseType } from '../../api/login-api';
+import {getUserData} from '../../bll/login-reducer';
+import {UserResponseType} from "../../types/responseTypes";
 
 const Profile = () => {
-    const user = useSelector<AppRootStateType, LoginResponseType>(getUserData);
+    const user = useSelector<AppRootStateType, UserResponseType>(getUserData);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
 
     const dispatch = useTypedDispatch()

@@ -3,50 +3,83 @@ import {useSelector} from "react-redux";
 import {AppRootStateType, useTypedDispatch} from "../../bll/store";
 import {loginTC} from "../../bll/login-reducer";
 import {Navigate, NavLink} from 'react-router-dom'
-import SuperButton from "../../SuperComponents/SuperButton/SuperButton";
-import SuperCheckbox from "../../SuperComponents/SuperCheckbox/SuperCheckbox";
-import SuperInputText from "../../SuperComponents/SuperInput/SuperInputText";
 import s from './Login.module.css'
+import cn from 'classnames';
+import styles from "../../components/forms/SignUp/SignUp.module.css";
+import AppInput from "../../components/common/AppInput/AppInput";
+import AppButton from "../../components/common/AppButton/AppButton";
+import {useFormik} from "formik";
+import AppCheckbox from "../../components/common/AppCheckbox/AppCheckbox";
+import {ReactComponent as OffEye} from "../../assets/images/iconmonstr-eye-10.svg";
+import {ReactComponent as OnEye} from "../../assets/images/iconmonstr-eye-9.svg";
+import {AppStatusType} from "../../bll/common-app-reducer";
+import classes from "*.module.css";
 
 const Login = memo(() => {
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+            rememberMe: false
+        },
+        onSubmit: (values) => {
+            dispatch(loginTC(values.email, values.password, values.rememberMe))
+        },
+    })
 
-        const dispatch = useTypedDispatch();
-        const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
-        const error = useSelector<AppRootStateType, string | null>((state) => state.login.error)
+    const [showPassword, setShowPassword] = useState(false);
+    const PasswordIcon = showPassword ? OffEye : OnEye;
+    const onPasswordIconClick = () => {
+        setShowPassword(!showPassword);
+    };
 
-        const [email, setEmail] = useState<string>("")
-        const [password, setPassword] = useState<string>("")
-        const [rememberMe, setRememberMe] = useState<boolean>(false)
+    const dispatch = useTypedDispatch();
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
+    const appStatus = useSelector<AppRootStateType, AppStatusType>((state) => state.appStatus.requestStatus)
+    const passwordFieldType = showPassword ? 'text' : 'password';
 
-        const onButtonCLickHandler = () => dispatch(loginTC(email, password, rememberMe))
-        const checkboxHandler = () => setRememberMe(!rememberMe)
 
-        if (isLoggedIn) {
-            return <Navigate to={"/profile"}/>
-        }
-
-        return (
-            <div className={s.container}>
-                <div className={s.loginContainer}>
-                    <h2>It-incubator</h2>
-                    <p>Sign In</p>
-                    {error && <div className={s.formSummaryError}>{error}</div>}
-                    <div className={s.inputs}>
-                        <SuperInputText value={email} onChangeText={setEmail} placeholder="email"
-                                        error={error ? error : ''}/>
-                        <SuperInputText value={password} onChangeText={setPassword} placeholder="password"
-                                        error={error ? error : ''}/>
-                    </div>
-                    <span><SuperCheckbox checked={rememberMe} onChange={checkboxHandler}/> Remember Me</span>
-                    <div><SuperButton onClick={onButtonCLickHandler} style={{width: "266px"}}>Login</SuperButton></div>
-                    <div>
-                        <p>Don’t have an account?</p>
-                        <div><NavLink to={'/registration'}> Sign Up</NavLink></div>
-                    </div>
-                </div>
-            </div>
-        );
+    if (isLoggedIn) {
+        return <Navigate to={"/profile"}/>
     }
-)
+
+    return (
+        <div>
+            <h3 className={cn('title', styles.title)}>Sign In</h3>
+            <form onSubmit={formik.handleSubmit}>
+                <div className={s.inputs}>
+                    <AppInput className={cn(styles.field)}
+                              label="E-mail"
+                              name={'email'}
+                              onChange={formik.handleChange}
+                              value={formik.values.email}
+                    />
+                    <AppInput
+                        label="Password"
+                        name="password"
+                        className={cn(styles.field)}
+                        type={passwordFieldType}
+                        endAddition={
+                            <AppButton type="button" iconButton
+                                       onClick={onPasswordIconClick}><PasswordIcon/></AppButton>
+                        }
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.password}
+                    />
+                </div>
+                <div className={s.remember}>
+                    <AppCheckbox name={'rememberMe'}
+                                   onChange={formik.handleChange}
+                                   checked={formik.values.rememberMe}
+                /> Remember Me
+                </div>
+                <div><AppButton type="button" disabled={appStatus === 'pending'} className={cn(styles.button)}
+                                onClick={() => formik.handleSubmit()}>LOGIN</AppButton></div>
+            </form>
+        </div>
+    );
+})
+
 
 export default Login;

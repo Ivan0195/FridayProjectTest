@@ -1,6 +1,7 @@
 // types
 import {Dispatch} from "redux";
-import {profileApi} from "../Pages/ProfilePage/profile-api";
+import {authApi} from "../api/auth-api";
+
 
 export type InitialStateType = typeof initialState
 
@@ -28,7 +29,7 @@ export const setError = (error: string) => ({type: 'PROFILE/SET-ERROR', error} a
 const updateData = (payload: UpdatingDataType) => ({type: 'PROFILE/UPDATE-DATA', payload} as const)
 // reducer
 const initialState = {
-    isAuthorized: false, //заглушка, поменять на false
+    isAuthorized: true , //заглушка, поменять на false
     name: '',
     email: '',
     avatar: '' as null | string,
@@ -51,7 +52,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
 
 // thunk creators
 export const initializeProfileTC = () => (dispatch: Dispatch<ProfileActionsType>) => {
-    profileApi.me()
+    authApi.me()
         .then(res => {
             dispatch(setIsAuthorized(true))
             dispatch(setAuthorizedData({name: res.data.name, email: res.data.email, avatar: res.data.avatar}))
@@ -66,7 +67,7 @@ export const initializeProfileTC = () => (dispatch: Dispatch<ProfileActionsType>
 
 export const updateInitializingDataTC = (payload: UpdatingDataType) =>
     (dispatch: Dispatch<ProfileActionsType>) => {
-        profileApi.updateMe(payload)
+        authApi.updateMe(payload)
             .then(res => {
                     dispatch(updateData(payload))
                 }

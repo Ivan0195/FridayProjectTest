@@ -1,10 +1,12 @@
-import {loginAPI, LoginResponseType} from "../api/login-api";
 import {Dispatch} from "redux";
-import { AppRootStateType, store } from "./store";
+import {AppRootStateType, store} from "./store";
 import {setAppStatusAC} from "./common-app-reducer";
+import {handleNetworkError} from "../utils/errorUtils";
+import {UserResponseType} from "../types/responseTypes";
+import {authApi} from "../api/auth-api";
 
 const initialState = {
-    userData: {} as LoginResponseType,
+    userData: {} as UserResponseType,
     isLoggedIn: false,
     error: "" as string | null,
     authMeError: "" as string | null
@@ -20,7 +22,7 @@ export type LoginActionsType = SetUserDataActionType | SetErrorActionType | IsLo
 export type AppDispatch = typeof store.dispatch
 
 //Action Creators\
-export const setUserDataAC = (userData: LoginResponseType) => ({type: 'LOGIN/SET-USER-DATA', userData} as const)
+export const setUserDataAC = (userData: UserResponseType) => ({type: 'LOGIN/SET-USER-DATA', userData} as const)
 export const setErrorAC = (error: string | null) => ({type: 'LOGIN/SET-ERROR', error} as const)
 export const setAuthMeErrorAC = (error: string | null) => ({type: 'LOGIN/SET-AUTH-ME-ERROR', error} as const)
 export const isLoggedInAC = (email: string) => ({type: 'LOGIN/IS-LOGGED-IN', email} as const)
@@ -28,7 +30,7 @@ export const isLoggedInAC = (email: string) => ({type: 'LOGIN/IS-LOGGED-IN', ema
 //Thunk Creators
 export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: AppDispatch) => {
     dispatch(setAppStatusAC('pending'))
-    loginAPI.login(email, password, rememberMe)
+    authApi.login({email: email, password: password, remeberMe: rememberMe})
         .then(res => {
                 dispatch(setUserDataAC(res.data))
                 dispatch(isLoggedInAC(res.data.email))
@@ -41,12 +43,13 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
             dispatch(setErrorAC(error
                 ? err.response.data.error
                 : (err.message + ', more details in the console')))
+            handleNetworkError(err);
         })
 }
 
 export const logoutTC = () => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('pending'))
-    loginAPI.logout()
+    authApi.logout()
         .then(res => {
             dispatch(isLoggedInAC(""))
             dispatch(setAppStatusAC('successful'))
@@ -58,12 +61,13 @@ export const logoutTC = () => (dispatch: Dispatch) => {
             dispatch(setErrorAC(error
                 ? err.response.data.error
                 : (err.message + ', more details in the console')))
+            handleNetworkError(err);
         })
 }
 
 export const authTC = () => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('pending'))
-    loginAPI.me()
+    authApi.me()
         .then(res => {
             dispatch(setUserDataAC(res.data))
             dispatch(isLoggedInAC(res.data.email))
@@ -75,6 +79,7 @@ export const authTC = () => (dispatch: Dispatch) => {
             dispatch(setAuthMeErrorAC(error
                 ? err.response.data.error
                 : (err.message + ', more details in the console')))
+            handleNetworkError(err);
         })
 }
 

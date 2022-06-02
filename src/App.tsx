@@ -15,6 +15,8 @@ import { AppRootStateType, useTypedDispatch } from "./bll/store";
 import Header from "./Pages/Header/Header";
 import { AppStatusType } from "./bll/common-app-reducer";
 import { authTC } from "./bll/login-reducer";
+import LinearPreloader from "./components/common/LinearPreloader/LinearPreloader";
+import {LoginContainer} from "./Pages/LoginPage/LoginContainer";
 
 function App() {
     useEffect(() => {
@@ -27,20 +29,20 @@ function App() {
     const dispatch = useTypedDispatch()
 
     if (appStatus === 'pending') {
-        return <div className={'App'}><img src={'https://i.gifer.com/Q46y.gif'}/></div>
+        return <div className={'App'}><LinearPreloader/></div>
     } else {
         return (
             <div className={'App'}>
                 {isLoggedIn && <Header/>}
                 <Routes>
                         <Route path="profile" element={<Profile/>}/>
-                        <Route path="login" element={<Login/>}/>
+                        <Route path="login" element={<LoginContainer/>}/>
                         <Route path="registration" element={<RegistrationPage/>}/>
                         <Route path="password_reset" element={<PasswordReset/>}/>
                         <Route path="new_password" element={<NewPassword/>}/>
                         <Route path="test" element={<Test/>}/>
                         <Route path="404" element={<Page404/>}/>
-                        <Route path="*" element={<Navigate to={'/404'}/>}/>
+                        <Route path="*" element={<Navigate to={'/profile'}/>}/>
                     </Routes>
               <ToastContainer position="bottom-left" hideProgressBar />
             </div>
