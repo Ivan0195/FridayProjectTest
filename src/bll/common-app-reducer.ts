@@ -1,6 +1,3 @@
-import {LoginResponseType} from "../api/login-api";
-import {LoginActionsType, LoginInitialStateType, setUserDataAC} from "./login-reducer";
-
 const initialState = {
     requestStatus: 'successful' as AppStatusType
 }

@@ -1,6 +1,6 @@
 import {AppDispatch} from "./store";
 import {setAppStatusAC} from "./common-app-reducer";
-import {resetPasswordAPI} from "../api/reset-password-api";
+import {authApi} from "../api/auth-api";
 
 const resetPasswordInitialState: resetPasswordInitialStateType = {
     error: null,
@@ -38,7 +38,7 @@ link</a></div>`
 
 export const sendTokenTC = (email: string) => (dispatch: AppDispatch) => {
     dispatch(setAppStatusAC("pending"))
-    resetPasswordAPI.resetPassword(email, from, message)
+    authApi.resetPassword({email, from, message})
         .then(() => {
             dispatch(setAppStatusAC("successful"))
             dispatch(setTokenIsSentAC(true))

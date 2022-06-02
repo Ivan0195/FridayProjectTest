@@ -5,8 +5,16 @@
     justify-content: center;
     align-items: center;
     width: 173px;
+    height: 100%;
+    border-bottom: 3px solid transparent;
     color: rgba(45, 46, 70, 1);
     opacity: 0.4
+}
+
+.itemWrapper:hover {
+    background: #DCCCDB;
+    border-bottom: #21268F 3px solid;
+    cursor: pointer;
 }
 
 .icon {

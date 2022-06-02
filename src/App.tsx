@@ -12,9 +12,9 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Test from "./Pages/TestPage/Test";
 import { useSelector } from "react-redux";
 import { AppRootStateType, useTypedDispatch } from "./bll/store";
-import Header from "./Pages/Header/Header";
 import { AppStatusType } from "./bll/common-app-reducer";
 import { authTC } from "./bll/login-reducer";
+import {Header} from "./Pages/Header/Header";
 
 function App() {
     useEffect(() => {
@@ -33,7 +33,7 @@ function App() {
             <div className={'App'}>
                 {isLoggedIn && <Header/>}
                 <Routes>
-                        <Route path="profile" element={<Profile/>}/>
+                        <Route path="/" element={<Profile/>}/>
                         <Route path="login" element={<Login/>}/>
                         <Route path="registration" element={<RegistrationPage/>}/>
                         <Route path="password_reset" element={<PasswordReset/>}/>

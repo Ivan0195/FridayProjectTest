@@ -1,11 +1,12 @@
-import {loginAPI, LoginResponseType} from "../api/login-api";
 import {Dispatch} from "redux";
 import { AppRootStateType, store } from "./store";
 import {setAppStatusAC} from "./common-app-reducer";
+import {authApi} from "../api/auth-api";
+import {UserResponseType} from "../types/responseTypes";
 
 const initialState = {
-    userData: {} as LoginResponseType,
-    isLoggedIn: false,
+    userData: {} as UserResponseType,
+    isLoggedIn: false, // исправить на false
     error: "" as string | null,
     authMeError: "" as string | null
 }
@@ -20,18 +21,18 @@ export type LoginActionsType = SetUserDataActionType | SetErrorActionType | IsLo
 export type AppDispatch = typeof store.dispatch
 
 //Action Creators\
-export const setUserDataAC = (userData: LoginResponseType) => ({type: 'LOGIN/SET-USER-DATA', userData} as const)
+export const setUserDataAC = (userData: UserResponseType) => ({type: 'LOGIN/SET-USER-DATA', userData} as const)
 export const setErrorAC = (error: string | null) => ({type: 'LOGIN/SET-ERROR', error} as const)
 export const setAuthMeErrorAC = (error: string | null) => ({type: 'LOGIN/SET-AUTH-ME-ERROR', error} as const)
-export const isLoggedInAC = (email: string) => ({type: 'LOGIN/IS-LOGGED-IN', email} as const)
+export const isLoggedInAC = (isLoggedIn: boolean) => ({type: 'LOGIN/IS-LOGGED-IN', isLoggedIn} as const)
 
 //Thunk Creators
 export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: AppDispatch) => {
     dispatch(setAppStatusAC('pending'))
-    loginAPI.login(email, password, rememberMe)
+    authApi.login({email, password, rememberMe})
         .then(res => {
                 dispatch(setUserDataAC(res.data))
-                dispatch(isLoggedInAC(res.data.email))
+                dispatch(isLoggedInAC(true))
                 dispatch(setAppStatusAC('successful'))
             }
         )
@@ -46,9 +47,9 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
 
 export const logoutTC = () => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('pending'))
-    loginAPI.logout()
+    authApi.logout()
         .then(res => {
-            dispatch(isLoggedInAC(""))
+            dispatch(isLoggedInAC(true))
             dispatch(setAppStatusAC('successful'))
             dispatch(setErrorAC(''))
         })
@@ -63,10 +64,10 @@ export const logoutTC = () => (dispatch: Dispatch) => {
 
 export const authTC = () => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('pending'))
-    loginAPI.me()
+    authApi.me()
         .then(res => {
             dispatch(setUserDataAC(res.data))
-            dispatch(isLoggedInAC(res.data.email))
+            dispatch(isLoggedInAC(true))
             dispatch(setAppStatusAC('successful'))
         })
         .catch(err => {
@@ -88,7 +89,7 @@ export const loginReducer = (state: LoginInitialStateType = initialState, action
         case 'LOGIN/SET-AUTH-ME-ERROR':
             return {...state, authMeError: action.error}
         case 'LOGIN/IS-LOGGED-IN':
-            return {...state, isLoggedIn: !!action.email}
+            return {...state, isLoggedIn: action.isLoggedIn}
         default:
             return {...state}
     }

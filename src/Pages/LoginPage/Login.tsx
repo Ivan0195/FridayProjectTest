@@ -3,10 +3,10 @@ import {useSelector} from "react-redux";
 import {AppRootStateType, useTypedDispatch} from "../../bll/store";
 import {loginTC} from "../../bll/login-reducer";
 import {Navigate, NavLink} from 'react-router-dom'
-import SuperButton from "../../SuperComponents/SuperButton/SuperButton";
 import SuperCheckbox from "../../SuperComponents/SuperCheckbox/SuperCheckbox";
-import SuperInputText from "../../SuperComponents/SuperInput/SuperInputText";
 import s from './Login.module.css'
+import SuperButton from "../ProfilePage/common/Button/SuperButton";
+import {Input} from "../ProfilePage/common/Input/Input";
 
 const Login = memo(() => {
 
@@ -32,13 +32,13 @@ const Login = memo(() => {
                     <p>Sign In</p>
                     {error && <div className={s.formSummaryError}>{error}</div>}
                     <div className={s.inputs}>
-                        <SuperInputText value={email} onChangeText={setEmail} placeholder="email"
+                        <Input value={email} onChange={setEmail} placeholder="Email"
                                         error={error ? error : ''}/>
-                        <SuperInputText value={password} onChangeText={setPassword} placeholder="password"
+                        <Input value={password} onChange={setPassword} placeholder="Password"
                                         error={error ? error : ''}/>
                     </div>
                     <span><SuperCheckbox checked={rememberMe} onChange={checkboxHandler}/> Remember Me</span>
-                    <div><SuperButton onClick={onButtonCLickHandler} style={{width: "266px"}}>Login</SuperButton></div>
+                    <div><SuperButton onClick={onButtonCLickHandler}>Login</SuperButton></div>
                     <div>
                         <p>Don’t have an account?</p>
                         <div><NavLink to={'/registration'}> Sign Up</NavLink></div>

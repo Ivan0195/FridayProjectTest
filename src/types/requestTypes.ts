@@ -4,7 +4,7 @@ export type SignUpPayloadType = {
 };
 
 export type SignInPayloadType = SignUpPayloadType & {
-  remeberMe: boolean;
+  rememberMe: boolean;
 };
 
 export type UpdatingProfilePayloadType = {
