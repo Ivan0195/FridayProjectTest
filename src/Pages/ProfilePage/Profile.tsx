@@ -44,8 +44,8 @@ const Profile = () => {
                     <Input placeholder={'Email'} disabled value={user.email}/>
                 </div>
                 <div className={s.buttons}>
-                    <SuperButton onClick={onCancelHandler}>Cancel</SuperButton>
-                    <SuperButton onClick={onSaveHandler}>Save</SuperButton>
+                    <SuperButton onClick={onCancelHandler} disabled={user.name === name}>Cancel</SuperButton>
+                    <SuperButton onClick={onSaveHandler} disabled={user.name === name}>Save</SuperButton>
                 </div>
             </div>
         </div>
