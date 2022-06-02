@@ -2,11 +2,8 @@ import React, {memo, useState} from 'react';
 import {useSelector} from "react-redux";
 import {AppRootStateType, useTypedDispatch} from "../../bll/store";
 import {loginTC} from "../../bll/login-reducer";
-import {Navigate, NavLink} from 'react-router-dom'
-import SuperCheckbox from "../../SuperComponents/SuperCheckbox/SuperCheckbox";
+import {Navigate} from 'react-router-dom'
 import s from './Login.module.css'
-import SuperButton from "../ProfilePage/common/Button/SuperButton";
-import {Input} from "../ProfilePage/common/Input/Input";
 import cn from 'classnames';
 import styles from "../../components/forms/SignUp/SignUp.module.css";
 import AppInput from "../../components/common/AppInput/AppInput";
@@ -16,7 +13,6 @@ import AppCheckbox from "../../components/common/AppCheckbox/AppCheckbox";
 import {ReactComponent as OffEye} from "../../assets/images/iconmonstr-eye-10.svg";
 import {ReactComponent as OnEye} from "../../assets/images/iconmonstr-eye-9.svg";
 import {AppStatusType} from "../../bll/common-app-reducer";
-import classes from "*.module.css";
 
 const Login = memo(() => {
     const formik = useFormik({
