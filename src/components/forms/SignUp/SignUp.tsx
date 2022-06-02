@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Formik } from "formik";
 import * as Yup from 'yup';
 import cn from 'classnames';
+import { useTypedDispatch, useAppSelector } from '../../../bll/store';
+import { getRegistrationStatus, registerUser, setRegistrationStatus, } from '../../../bll/registration-reducer';
 import AppInput from '../../common/AppInput/AppInput';
 import AppButton from '../../common/AppButton/AppButton';
 import { ReactComponent as OnEye } from '../../../assets/images/iconmonstr-eye-9.svg';
 import { ReactComponent as OffEye } from '../../../assets/images/iconmonstr-eye-10.svg';
 import { SignUpPayloadType } from '../../../types/requestTypes';
 import { ClassNameType } from '../../../types/common';
-import { useTypedDispatch, useAppSelector } from '../../../bll/store';
-import styles from './SignUp.module.css';
-import {
-  getRegistrationStatus,
-  registerUser, setRegistrationStatus,
-} from '../../../bll/registration-reducer';
-import { Navigate, useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '../../../types/enums/routes';
+import styles from './SignUp.module.css';
 
 const PASSWORD_MAX_LENGTH = 8;
 
