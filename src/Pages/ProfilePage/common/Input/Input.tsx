@@ -2,10 +2,11 @@ import React, {ChangeEvent} from 'react';
 import s from './Input.module.css'
 
 type InputPropsType = {
-    inputName?: string
+    placeholder?: string
     value: string
     onChange?: (newValue: string) => void
     disabled?: boolean
+    error?: string
 }
 
 export const Input = React.memo(function (props: InputPropsType) {
@@ -15,7 +16,7 @@ export const Input = React.memo(function (props: InputPropsType) {
 
     return (
         <div className={s.editableSpan}>
-            <span className={s.inputName}>{props.inputName}</span>
+            <span className={s.inputName}>{props.placeholder}</span>
             <input className={s.input} value={props.value} onChange={changeTitle} disabled={props.disabled}/>
         </div>)
 });

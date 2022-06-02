@@ -1,38 +1,40 @@
 .header {
-    width: 100vw;
-    background: #EBE0E9;
-    margin-bottom: 24px;
-}
-
-.container {
-    width: 1008px;
+    width: 100%;
     height: 60px;
-    margin: 0 auto;
+    background: #EBE0E9;
+    position: relative;
     display: flex;
-    align-items: center;
+    justify-content: space-between;
 }
 
-.title {
-    font-family: Poppins;
+.headerText {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    width: 163px;
+    height: 39px;
+    left: 136px;
+    top: 10px;
+    font-family: 'Poppins', serif;
     font-style: normal;
     font-weight: 600;
     font-size: 26px;
     line-height: 39px;
-    /* identical to box height */
     color: #2D2E46;
-    cursor: default;
+}
+
+.menu {
+    position: absolute;
+    display: flex;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+
 }
 
 .logout {
-    width: 140px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: absolute;
+    right: 10%;
+    height: 100%;
 }
 
-.logout:hover {
-    background: #DCCCDB;
-    border-bottom: #21268F 3px solid;
-    cursor: pointer;
-}

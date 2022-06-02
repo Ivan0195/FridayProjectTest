@@ -3,7 +3,10 @@ import {useSelector} from "react-redux";
 import {AppRootStateType, useTypedDispatch} from "../../bll/store";
 import {loginTC} from "../../bll/login-reducer";
 import {Navigate, NavLink} from 'react-router-dom'
+import SuperCheckbox from "../../SuperComponents/SuperCheckbox/SuperCheckbox";
 import s from './Login.module.css'
+import SuperButton from "../ProfilePage/common/Button/SuperButton";
+import {Input} from "../ProfilePage/common/Input/Input";
 import cn from 'classnames';
 import styles from "../../components/forms/SignUp/SignUp.module.css";
 import AppInput from "../../components/common/AppInput/AppInput";

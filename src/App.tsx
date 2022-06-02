@@ -7,16 +7,15 @@ import Page404 from './Pages/404Page/404';
 import './App.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Login from "./Pages/LoginPage/Login";
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Test from "./Pages/TestPage/Test";
 import { useSelector } from "react-redux";
 import { AppRootStateType, useTypedDispatch } from "./bll/store";
-import Header from "./Pages/Header/Header";
 import { AppStatusType } from "./bll/common-app-reducer";
 import { authTC } from "./bll/login-reducer";
 import LinearPreloader from "./components/common/LinearPreloader/LinearPreloader";
 import {LoginContainer} from "./Pages/LoginPage/LoginContainer";
+import Header from "./Pages/Header/Header";
 
 function App() {
     useEffect(() => {

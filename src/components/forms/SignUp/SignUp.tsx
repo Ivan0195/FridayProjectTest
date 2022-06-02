@@ -13,6 +13,7 @@ import { SignUpPayloadType } from '../../../types/requestTypes';
 import { ClassNameType } from '../../../types/common';
 import { RoutesEnum } from '../../../types/enums/routes';
 import styles from './SignUp.module.css';
+import SuperButton from "../../../Pages/ProfilePage/common/Button/SuperButton";
 
 const PASSWORD_MAX_LENGTH = 8;
 
@@ -95,8 +96,8 @@ export const SignUp: React.FC<ClassNameType> = ({ className }) => {
               />
             </div>
             <div className={cn(styles.buttonWrapper)}>
-              <AppButton type="button" disabled={isSubmitting} className={cn(styles.button)} onClick={handleCancelClick}>Cancel</AppButton>
-              <AppButton type="submit" disabled={isSubmitting} className={cn(styles.button)}>Register</AppButton>
+              <SuperButton type="button" disabled={isSubmitting} onClick={handleCancelClick}>Cancel</SuperButton>
+              <SuperButton type="submit" disabled={isSubmitting} >Register</SuperButton>
             </div>
           </form>
         )}
