@@ -1,4 +1,4 @@
-import { authService } from '../services/authService';
+import { authApi } from '../api/auth-api';
 import { AxiosError } from 'axios';
 import { SignUpPayloadType } from '../types/requestTypes';
 import { ErrorResponseType } from '../types/responseTypes';
@@ -23,7 +23,7 @@ export const setRegistrationStatus = (status: StatusesType) => ({
 
 export const registerUser = (payload: SignUpPayloadType) => async (dispatch: Dispatch<ActionsType>) => {
     try {
-        await authService.register(payload);
+        await authApi.register(payload);
         dispatch(setRegistrationStatus('success'));
     } catch (e) {
         const err = e as AxiosError<ErrorResponseType>;

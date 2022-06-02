@@ -2,19 +2,22 @@ export type ErrorResponseType = {
   error?: string | null;
 };
 
-export type UserType = {
-  _id: string;
-  email: string;
-  name: string;
-  avatar?: string;
-  publicCardPacksCount: number;
-  created: Date;
-  updated: Date;
-  isAdmin: boolean;
-  verified: boolean;
-  rememberMe: boolean;
+export type UserResponseType = {
+  _id: string
+  email: string
+  name: string
+  avatar?: string
+  publicCardPacksCount: number
+  created: Date
+  updated: Date
+  isAdmin: boolean
+  verified: boolean
+  rememberMe: boolean
+  error?: string
 };
 
-export type CheckAuthResponseType = ErrorResponseType | {
-  updatedUser: UserType;
+export type ResetPasswordResponseType = {
+  info: string;
+  error: string;
 };
+

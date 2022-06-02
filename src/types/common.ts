@@ -1,3 +1,5 @@
+export type AnyObjectType = Record<string, unknown>;
+
 export type ChildrenComponentsType = {
   children: JSX.Element | JSX.Element[] | string;
 };
