@@ -15,7 +15,7 @@ import { AppStatusType } from "./bll/common-app-reducer";
 import { authTC } from "./bll/login-reducer";
 import LinearPreloader from "./components/common/LinearPreloader/LinearPreloader";
 import {LoginContainer} from "./Pages/LoginPage/LoginContainer";
-import Header from "./Pages/Header/Header";
+import { Header } from "./Pages/Header/Header";
 
 function App() {
     useEffect(() => {

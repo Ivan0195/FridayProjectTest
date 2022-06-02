@@ -1,5 +1,5 @@
 const initialState = {
-    requestStatus: 'successful' as AppStatusType
+    requestStatus: 'pending' as AppStatusType
 }
 
 export type AppStatusType = 'pending' | 'successful' | 'failed'

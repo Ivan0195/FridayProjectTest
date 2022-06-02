@@ -30,7 +30,7 @@ export const isLoggedInAC = (email: string) => ({type: 'LOGIN/IS-LOGGED-IN', ema
 //Thunk Creators
 export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: AppDispatch) => {
     dispatch(setAppStatusAC('pending'))
-    authApi.login({email: email, password: password, remeberMe: rememberMe})
+    authApi.login({email: email, password: password, rememberMe: rememberMe})
         .then(res => {
                 dispatch(setUserDataAC(res.data))
                 dispatch(isLoggedInAC(res.data.email))

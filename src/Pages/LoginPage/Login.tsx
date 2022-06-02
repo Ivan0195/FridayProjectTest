@@ -77,7 +77,7 @@ const Login = memo(() => {
                                    checked={formik.values.rememberMe}
                 /> Remember Me
                 </div>
-                <div><AppButton type="button" disabled={appStatus === 'pending'} className={cn(styles.button)}
+                <div><AppButton type="submit" disabled={appStatus === 'pending'} className={cn(styles.button)}
                                 onClick={() => formik.handleSubmit()}>LOGIN</AppButton></div>
             </form>
         </div>

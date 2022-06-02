@@ -17,10 +17,10 @@ export const Header = () => {
             <h2 className={s.headerText}>It-incubator</h2>
             <div className={s.menu}>
                 <MenuItem title={'Packs list'} link={'/ty'} icon={packsListIcon}/>
-                <MenuItem title={'Profile'} link={''} icon={profileIcon}/>
+                <MenuItem title={'Profile'} link={'/profile'} icon={profileIcon}/>
             </div>
             <div className={s.logout}>
-                <MenuItem title={'Logout'} onClick={logout} link={'#login'} icon={logoutIcon}/>
+                <MenuItem title={'Logout'} onClick={logout} link={'/login'} icon={logoutIcon}/>
             </div>
             {/*<a onClick={logout} className={s.logout}>Logout</a>*/}
         </div>

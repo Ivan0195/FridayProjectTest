@@ -17,11 +17,6 @@ const Profile = () => {
 
     const [name, setName] = useState<string>(user.name)
 
-    useEffect(() => {
-        dispatch(authTC())
-    }, [])
-
-
     const onSaveHandler = () => {
         dispatch(updateInitializingDataTC({name}))
     }
