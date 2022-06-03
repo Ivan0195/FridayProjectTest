@@ -17,7 +17,11 @@ export const LoginContainer = () => {
                     <Login/>
                 </CardBox>
                 <CardBox>
-                    <div>
+                    <div className={styles.forgot}>
+                        <p>Forgot your password?</p>
+                        <div ><NavLink to={'/password_reset'}> Reset password</NavLink></div>
+                    </div>
+                    <div className={styles.forgot}>
                         <p>Don’t have an account?</p>
                         <div><NavLink to={'/registration'}> Sign Up</NavLink></div>
                     </div>

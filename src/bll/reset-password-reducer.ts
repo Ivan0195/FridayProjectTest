@@ -1,6 +1,7 @@
 import {AppDispatch} from "./store";
 import {setAppStatusAC} from "./common-app-reducer";
 import {authApi} from "../api/auth-api";
+import {handleNetworkError} from "../utils/errorUtils";
 
 const resetPasswordInitialState: resetPasswordInitialStateType = {
     error: null,
@@ -33,7 +34,7 @@ const resetPasswordReducer = (state = resetPasswordInitialState, action: ResetPa
 const from = "test-front-admin<ai73a@yandex.by>"
 const message = `<div style="background-color: lime; padding: 15px"> 
 go to reset your password: 
-<a href='https://Ivan0195.github.io/FridayProject#/newPassword/$token$'>
+<a href='https://Ivan0195.github.io/FridayProject/#/new_password/$token$'>
 link</a></div>`
 
 export const sendTokenTC = (email: string) => (dispatch: AppDispatch) => {
@@ -46,6 +47,7 @@ export const sendTokenTC = (email: string) => (dispatch: AppDispatch) => {
         .catch((error) => {
             dispatch(setAppStatusAC("failed"))
             dispatch(setAppErrorAC(error.response.data.error))
+            handleNetworkError(error)
         })
 }
 

@@ -13,6 +13,7 @@ import AppCheckbox from "../../components/common/AppCheckbox/AppCheckbox";
 import {ReactComponent as OffEye} from "../../assets/images/iconmonstr-eye-10.svg";
 import {ReactComponent as OnEye} from "../../assets/images/iconmonstr-eye-9.svg";
 import {AppStatusType} from "../../bll/common-app-reducer";
+import SuperButton from "../ProfilePage/common/Button/SuperButton";
 
 const Login = memo(() => {
     const formik = useFormik({
@@ -73,8 +74,8 @@ const Login = memo(() => {
                                    checked={formik.values.rememberMe}
                 /> Remember Me
                 </div>
-                <div><AppButton type="submit" disabled={appStatus === 'pending'} className={cn(styles.button)}
-                                onClick={() => formik.handleSubmit()}>LOGIN</AppButton></div>
+                <div><SuperButton type="submit" disabled={appStatus === 'pending'} className={cn(styles.button)}
+                                onClick={() => formik.handleSubmit()}>LOGIN</SuperButton></div>
             </form>
         </div>
     );

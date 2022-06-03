@@ -24,7 +24,6 @@ function App() {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
     const appStatus = useSelector<AppRootStateType, AppStatusType>(state => state.appStatus.requestStatus)
-    const authMeError = useSelector<AppRootStateType, string | null>(state => state.login.authMeError)
     const dispatch = useTypedDispatch()
 
     if (appStatus === 'pending') {
@@ -39,7 +38,7 @@ function App() {
                         <Route path="/login" element={<LoginContainer/>}/>
                         <Route path="/registration" element={<RegistrationPage/>}/>
                         <Route path="/password_reset" element={<PasswordReset/>}/>
-                        <Route path="/new_password" element={<NewPassword/>}/>
+                        <Route path="/new_password/:token" element={<NewPassword/>}/>
                         <Route path="/test" element={<Test/>}/>
                         <Route path="/404" element={<Page404/>}/>
                         <Route path="*" element={<Navigate to={'/404'}/>}/>
