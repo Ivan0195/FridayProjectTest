@@ -34,7 +34,7 @@ const resetPasswordReducer = (state = resetPasswordInitialState, action: ResetPa
 const from = "test-front-admin<ai73a@yandex.by>"
 const message = `<div style="background-color: lime; padding: 15px"> 
 go to reset your password: 
-<a href='https://Ivan0195.github.io/FridayProject/#/new_password/$token$'>
+<a href='https://Ivan0195.github.io/FridayProjectTest/#/new_password/$token$'>
 link</a></div>`
 
 export const sendTokenTC = (email: string) => (dispatch: AppDispatch) => {
