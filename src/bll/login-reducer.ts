@@ -85,7 +85,6 @@ export const authTC = () => (dispatch: Dispatch) => {
             dispatch(setAuthMeErrorAC(error
                 ? err.response.data.error
                 : (err.message + ', more details in the console')))
-            handleNetworkError(err);
         })
 }
 

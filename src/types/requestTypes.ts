@@ -17,3 +17,8 @@ export type ResetPasswordPayloadType = {
   from: string;
   message: string;
 };
+
+export type NewPasswordPayloadType = {
+  password: string
+  resetPasswordToken: string
+}

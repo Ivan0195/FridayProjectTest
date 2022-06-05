@@ -1,12 +1,13 @@
 import { api } from './axios';
 import {
+  NewPasswordPayloadType,
   ResetPasswordPayloadType,
   SignInPayloadType,
   SignUpPayloadType,
   UpdatingProfilePayloadType
 } from '../types/requestTypes';
 import { AxiosResponse } from 'axios';
-import { UserResponseType, ResetPasswordResponseType } from '../types/responseTypes';
+import {UserResponseType, ResetPasswordResponseType, NewPasswordResponseType} from '../types/responseTypes';
 import { AnyObjectType } from '../types/common';
 
 export const authApi = {
@@ -15,6 +16,7 @@ export const authApi = {
     login: '/auth/login',
     me: '/auth/me',
     forgot: '/auth/forgot',
+    setNewPassword: '/auth/set-new-password',
   },
   register(payload: SignUpPayloadType): Promise<AxiosResponse> {
     return api.post<SignUpPayloadType, AxiosResponse>(
@@ -36,5 +38,8 @@ export const authApi = {
   },
   resetPassword(payload: ResetPasswordPayloadType) {
     return api.post<ResetPasswordPayloadType, AxiosResponse<ResetPasswordResponseType>>(this.endpoints.forgot, payload)
+  },
+  newPassword(payload: NewPasswordPayloadType) {
+    return api.post<NewPasswordPayloadType, AxiosResponse<NewPasswordResponseType>>(this.endpoints.setNewPassword, payload)
   },
 };

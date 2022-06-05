@@ -21,3 +21,8 @@ export type ResetPasswordResponseType = {
   error: string;
 };
 
+export type NewPasswordResponseType = {
+  info: string
+  error: string;
+}
+

@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { RegistrationPage } from './Pages/RegistrationPage';
 import Profile from './Pages/ProfilePage/Profile';
 import PasswordReset from './Pages/PasswordResetPage/PasswordReset';
-import NewPassword from './Pages/NewPasswordPage/NewPassword';
 import Page404 from './Pages/404Page/404';
 import './App.css';
 import { ToastContainer } from 'react-toastify';
@@ -16,6 +15,7 @@ import { authTC } from "./bll/login-reducer";
 import LinearPreloader from "./components/common/LinearPreloader/LinearPreloader";
 import {LoginContainer} from "./Pages/LoginPage/LoginContainer";
 import { Header } from "./Pages/Header/Header";
+import {NewPassword} from "./Pages/NewPasswordPage/NewPassword";
 
 function App() {
     useEffect(() => {
