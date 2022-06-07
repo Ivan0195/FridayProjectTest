@@ -1,7 +1,7 @@
 const initialState = {
     packName: '',
     min: 0,
-    max: 9,
+    max: 103,
     sortPacks: '0updated',
     page: 1,
     pageCount: 4,
@@ -32,7 +32,7 @@ export const packsFilterSettingsReducer = (state: FilterSettingsInitialStateType
         case "PACKS-FILTER/SET-PACK-MIN-CARDS":
             return {...state, min: action.min}
         case "PACKS-FILTER/SET-PACK-MAX-CARDS":
-            return {...state, min: action.max}
+            return {...state, max: action.max}
         case "PACKS-FILTER/SET-PACK-SORT-BY":
             return {...state, sortPacks: action.sortBy}
         case "PACKS-FILTER/SET-PACK-PAGE":
