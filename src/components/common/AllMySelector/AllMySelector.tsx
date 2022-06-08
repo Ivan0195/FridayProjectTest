@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import s from './AllMySelector.module.css'
 import {setPacksUsedIdAC} from "../../../bll/packs-filter-settings-reducer";
 
-const AllMySelector = () => {
+export const AllMySelector = () => {
 
     const dispatch = useTypedDispatch()
     const userId = useSelector<AppRootStateType, string>(state => state.login.userData._id)
@@ -18,5 +18,3 @@ const AllMySelector = () => {
             </div>
     );
 };
-
-export default AllMySelector;

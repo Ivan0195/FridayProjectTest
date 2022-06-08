@@ -1,14 +1,16 @@
 import React from 'react';
 import {DoubleRange} from "../../components/common/DoubleRange/DoubleRange";
-import AllMySelector from "../../components/common/AllMySelector/AllMySelector";
+import {AllMySelector} from "../../components/common/AllMySelector/AllMySelector";
+import {SortPacksBlock} from "../../components/common/SortPacksBlock/SortPacksBlock";
+
 
 const Test = () => {
 
     return (
-
         <div>
-           <DoubleRange/>
+            <DoubleRange/>
             <AllMySelector/>
+            <SortPacksBlock/>
         </div>
     );
 };
