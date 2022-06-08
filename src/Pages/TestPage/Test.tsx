@@ -1,5 +1,6 @@
 import React from 'react';
 import {DoubleRange} from "../../components/common/DoubleRange/DoubleRange";
+import AllMySelector from "../../components/common/AllMySelector/AllMySelector";
 
 const Test = () => {
 
@@ -7,6 +8,7 @@ const Test = () => {
 
         <div>
            <DoubleRange/>
+            <AllMySelector/>
         </div>
     );
 };
