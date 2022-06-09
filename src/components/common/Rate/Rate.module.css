@@ -1,0 +1,11 @@
+.star {
+  fill: #D7D8EF;
+}
+
+.checked {
+  fill: #21268F;
+}
+
+.clickable {
+  cursor: pointer;
+}
