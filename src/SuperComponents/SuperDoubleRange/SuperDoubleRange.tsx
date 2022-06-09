@@ -51,7 +51,7 @@ const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = (
                 type={'range'}
                 onChange={onChangeCallback}
                 className={finalRangeClassName}
-                min={'0'} max={'100'}
+                min={'0'} max={'103'}
                 value={minValueChanger}
                 {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
             />
@@ -60,7 +60,7 @@ const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = (
                 onChange={onChangeCallback2}
                 className={finalRangeClassName}
                 value={maxValueChanger}
-                min={'0'} max={'100'}
+                min={'0'} max={'103'}
                 {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
             />
         </span>

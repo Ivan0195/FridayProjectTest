@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
-import { RegistrationPage } from './Pages/RegistrationPage';
+import React, {useEffect} from 'react';
+import {RegistrationPage} from './Pages/RegistrationPage';
 import Profile from './Pages/ProfilePage/Profile';
 import PasswordReset from './Pages/PasswordResetPage/PasswordReset';
 import Page404 from './Pages/404Page/404';
 import './App.css';
-import { ToastContainer } from 'react-toastify';
+import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Navigate, Route, Routes } from 'react-router-dom'
+import {Navigate, Route, Routes} from 'react-router-dom'
 import Test from "./Pages/TestPage/Test";
-import { useSelector } from "react-redux";
-import { AppRootStateType, useTypedDispatch } from "./bll/store";
-import { AppStatusType } from "./bll/common-app-reducer";
-import { authTC } from "./bll/login-reducer";
+import {useSelector} from "react-redux";
+import {AppRootStateType, useTypedDispatch} from "./bll/store";
+import {AppStatusType} from "./bll/common-app-reducer";
+import {authTC} from "./bll/login-reducer";
 import LinearPreloader from "./components/common/LinearPreloader/LinearPreloader";
 import {LoginContainer} from "./Pages/LoginPage/LoginContainer";
-import { Header } from "./Pages/Header/Header";
+import {Header} from "./Pages/Header/Header";
 import {NewPassword} from "./Pages/NewPasswordPage/NewPassword";
 import { Packs } from './Pages/Packs';
 import { Cards } from './Pages/Cards';

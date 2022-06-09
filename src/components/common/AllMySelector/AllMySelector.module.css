@@ -1,0 +1,27 @@
+.btnBlock {
+    width: 196px;
+    height: 36px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    display: flex;
+    font-family: 'Poppins', serif;
+}
+
+.btnOfLeftMenu {
+    width: 98px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.btnOfLeftMenu:hover {
+    background: rgba(154, 145, 200, 0.25);
+    cursor: pointer;
+    color: white;
+}
+.active {
+    background: #9A91C8;
+    color: white;
+}
