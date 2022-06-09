@@ -4,6 +4,7 @@
 
 .minValue {
     width: 100px;
+    margin-left: 70px;
 }
 
 .maxValue {
@@ -12,13 +13,13 @@
 }
 
 .range_input {
-    margin-left: 23px;
+    margin-left: 90px;
     position: relative;
 }
 
 .slider {
     top: 12px;
-    margin-left: 30px;
+    margin-left: 90px;
     height: 5px;
     width: 120px;
     position: relative;

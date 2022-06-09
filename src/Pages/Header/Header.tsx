@@ -16,7 +16,7 @@ export const Header = () => {
         <div className={s.header}>
             <h2 className={s.headerText}>It-incubator</h2>
             <div className={s.menu}>
-                <MenuItem title={'Packs list'} link={'/ty'} icon={packsListIcon}/>
+                <MenuItem title={'Packs list'} link={'/packs_list'} icon={packsListIcon}/>
                 <MenuItem title={'Profile'} link={'/profile'} icon={profileIcon}/>
             </div>
             <div className={s.logout}>
