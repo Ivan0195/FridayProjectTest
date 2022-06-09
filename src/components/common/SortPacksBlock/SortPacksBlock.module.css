@@ -1,0 +1,12 @@
+.container {
+    font-family: 'Poppins', serif;
+    background: #FEFEFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.sortButton {
+    display: flex;
+    cursor: pointer;
+}
