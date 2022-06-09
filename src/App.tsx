@@ -38,13 +38,12 @@ function App() {
                 <Routes>
                         <Route path="/" element={<Navigate to={'/profile'}/>}/>
                         <Route path="/profile" element={<Profile/>}/>
-                        <Route path="/packs_list" element={<PacksList/>}/>
                         <Route path="/login" element={<LoginContainer/>}/>
                         <Route path="/registration" element={<RegistrationPage/>}/>
                         <Route path="/password_reset" element={<PasswordReset/>}/>
                         <Route path="/new_password/:token" element={<NewPassword/>}/>
-                        <Route path="/packs">
-                          <Route path="" element={<Packs/>} />
+                        <Route path="/packs_list">
+                          <Route path="" element={<PacksList/>} />
                           <Route path=":id" element={<Cards/>} />
                         </Route>
                         <Route path="/test" element={<Test/>}/>

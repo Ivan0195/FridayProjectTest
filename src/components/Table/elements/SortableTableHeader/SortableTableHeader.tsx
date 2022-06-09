@@ -47,7 +47,7 @@ const stateBehavior: Record<OrdersType, StatebBehaviorType> = {
 export const SortableTableHeader: React.FC<SortableTableHeaderType> = ({ children, onClick }) => {
   const [orderState, setOrderState] = useState<OrdersType>('default');
   const currentBehavior = stateBehavior[orderState];
-  const handleClick = () => currentBehavior.next(setOrderState, onClick);;
+  const handleClick = () => currentBehavior.next(setOrderState, onClick);
 
   return (
     <div className={styles.wrapper} onClick={handleClick}>

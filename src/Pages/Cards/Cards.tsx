@@ -7,6 +7,8 @@ import React, { useEffect } from 'react';
 import { AppRootStateType, useTypedDispatch } from '../../bll/store';
 import { fetchCard, getCards, setCards } from '../../bll/packs-reducer';
 import { useSelector } from 'react-redux';
+import { Search } from '../../components/common/SearchBlock/Search';
+import { Pagination } from '../../components/common/Pagination/Pagination';
 
 const columns = [
   {
@@ -48,6 +50,15 @@ export const Cards = () => {
   }, [dispatch, id]);
 
   return (
-    <Table columns={columns} items={cards ? cards.cards : []} itemRowKey="_id" />
+    <>
+      <Search onChange={() => {}}/>
+      <Table columns={columns} items={cards ? cards.cards : []} itemRowKey="_id" />
+      <Pagination currentPage={1}
+                  itemsOnPageCount={5}
+                  totalItemsCount={45}
+                  onPageChanged={() => {}}
+                  onChangeItemsOnPageCount={() => {}}
+      />
+    </>
   );
 };

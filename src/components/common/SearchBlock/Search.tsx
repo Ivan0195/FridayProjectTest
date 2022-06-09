@@ -9,9 +9,9 @@ type SearchPropsType = {
 export const Search = ({...props}: SearchPropsType) => {
     const [value, onSetValue] = useState('')
 
-    useEffect(()=>{
-        props.onChange(value)
-    },[value])
+    // useEffect(()=>{
+    //     props.onChange(value)
+    // },[value])
 
     const onChangeSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
         onSetValue(e.currentTarget.value)

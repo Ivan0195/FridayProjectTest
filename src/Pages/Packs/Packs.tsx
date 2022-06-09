@@ -79,10 +79,6 @@ export const Packs = () => {
     },
   ], [dispatch, modalStatus, userID]);
 
-  useEffect(() => {
-    dispatch(fetchCardsPack());
-  }, [dispatch]);
-
   return (
     <>
       <Table columns={columns} items={cardsPack?.cardPacks ?? []} itemRowKey="_id" />

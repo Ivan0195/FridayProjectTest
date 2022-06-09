@@ -1,13 +1,43 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import s from './PacksListPage.module.css'
 import {AllMySelector} from "../../components/common/AllMySelector/AllMySelector";
 import {DoubleRange} from "../../components/common/DoubleRange/DoubleRange";
 import {SortPacksBlock} from "../../components/common/SortPacksBlock/SortPacksBlock";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../bll/store";
+import { AppRootStateType, useAppSelector, useTypedDispatch } from "../../bll/store";
 import {Navigate} from "react-router-dom";
+import { Packs } from '../Packs';
+import { Pagination } from '../../components/common/Pagination/Pagination';
+import { setPackNameAC, setPacksPageAC, setPacksPageCountAC } from '../../bll/packs-filter-settings-reducer';
+import { Search } from '../../components/common/SearchBlock/Search';
+import { fetchCardsPack } from '../../bll/packs-reducer';
 
 export const PacksList = () => {
+    const totalItemsCount = useAppSelector(state => state.packsFilterSettings.totalCardsCount)
+    const itemsOnPageCount = useAppSelector<number>(state => state.packsFilterSettings.pageCount)
+    const packName = useAppSelector(state => state.packsFilterSettings.packName)
+    const min = useAppSelector<number>(state => state.packsFilterSettings.min)
+    const max = useAppSelector<number>(state => state.packsFilterSettings.max)
+    const sortPacks = useAppSelector(state => state.packsFilterSettings.sortPacks)
+    const currentPage = useAppSelector<number>(state => state.packsFilterSettings.page)
+    const user_id = useAppSelector(state => state.packsFilterSettings.user_id)
+    const dispatch = useTypedDispatch()
+
+    useEffect(() => {
+        dispatch(fetchCardsPack());
+    }, [dispatch, itemsOnPageCount, totalItemsCount, packName, min, max, currentPage, sortPacks, user_id]);
+
+    const onChangeSearchHandler = (value: string) => {
+        dispatch(setPackNameAC(value))
+    }
+
+    const onPageChangedHandler = (pageNumber: number) => {
+        dispatch(setPacksPageAC(pageNumber))
+    }
+
+    const onChangeItemsCountHandler = (value: number) => {
+        dispatch(setPacksPageCountAC(value))
+    }
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
 
@@ -26,10 +56,17 @@ export const PacksList = () => {
                 </div>
                 <div className={s.packsBar}>
                     <h1>Packs List</h1>
-                    <h3>Place for Search component</h3>
+                    <Search onChange={onChangeSearchHandler}/>
                     <SortPacksBlock/>
-                    <h3>Place for Packs Table</h3>
-                    <h3>Place for Paginator component</h3>
+                    <div>
+                        <Packs />
+                    </div>
+                    <Pagination currentPage={currentPage}
+                                itemsOnPageCount={itemsOnPageCount}
+                                totalItemsCount={totalItemsCount}
+                                onPageChanged={onPageChangedHandler}
+                                onChangeItemsOnPageCount={onChangeItemsCountHandler}
+                    />
                 </div>
             </div>
         </div>

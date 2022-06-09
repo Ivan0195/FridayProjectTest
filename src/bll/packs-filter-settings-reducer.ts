@@ -1,5 +1,4 @@
 import {Dispatch} from "redux";
-import {api} from "../components/common/Pagination/api";
 import {handleNetworkError} from "../utils/errorUtils";
 import {AppRootStateType} from "./store";
 
@@ -60,17 +59,4 @@ export const packsFilterSettingsReducer = (state: FilterSettingsInitialStateType
         default:
             return {...state}
     }
-}
-
-export const getCards = (page: number) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
-    let pageCount = getState().packsFilterSettings.pageCount
-    let packName = getState().packsFilterSettings.packName
-    //исправить api
-    api.getCards(page, pageCount, packName)
-        .then(res => {
-            dispatch(setCardsCountAC(res.data.cardPacksTotalCount ? res.data.cardPacksTotalCount : 0))
-        })
-        .catch(e => {
-            handleNetworkError(e);
-        })
 }
