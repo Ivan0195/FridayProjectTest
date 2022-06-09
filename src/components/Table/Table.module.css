@@ -1,0 +1,28 @@
+.table {
+  width: 100%;
+  box-shadow: 0 4px 14px rgba(45, 46, 70, 0.15);
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.row {
+  background-color: #ffffff;
+}
+
+.row:nth-child(even) {
+  background-color: #F8F7FD;
+}
+
+.tableHeader {
+  padding: 16px 25px;
+  text-align: left;
+  font-weight: 700;
+  color: #2D2E46;
+  background-color: #ECECF9;
+  user-select: none;
+}
+
+.tableCell {
+  padding: 16px 25px;
+  font-weight: 400;
+}

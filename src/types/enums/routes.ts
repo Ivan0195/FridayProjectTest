@@ -4,4 +4,5 @@ export enum RoutesEnum {
   Profile = '/profile',
   Recovery = '/recovery',
   PasswordChange = '/password-change',
+  Packs = '/packs',
 }

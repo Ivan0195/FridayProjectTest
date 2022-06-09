@@ -2,7 +2,7 @@ import { authApi } from '../api/auth-api';
 import { AxiosError } from 'axios';
 import { SignUpPayloadType } from '../types/requestTypes';
 import { ErrorResponseType } from '../types/responseTypes';
-import { AppRootStateType } from './store';
+import { AppDispatch, AppRootStateType } from './store';
 import { handleNetworkError } from '../utils/errorUtils';
 import { Dispatch } from 'redux';
 
@@ -21,7 +21,7 @@ export const setRegistrationStatus = (status: StatusesType) => ({
     payload: { status },
 } as const);
 
-export const registerUser = (payload: SignUpPayloadType) => async (dispatch: Dispatch<ActionsType>) => {
+export const registerUser = (payload: SignUpPayloadType) => async (dispatch: AppDispatch) => {
     try {
         await authApi.register(payload);
         dispatch(setRegistrationStatus('success'));

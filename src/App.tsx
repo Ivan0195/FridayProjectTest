@@ -16,6 +16,8 @@ import LinearPreloader from "./components/common/LinearPreloader/LinearPreloader
 import {LoginContainer} from "./Pages/LoginPage/LoginContainer";
 import { Header } from "./Pages/Header/Header";
 import {NewPassword} from "./Pages/NewPasswordPage/NewPassword";
+import { Packs } from './Pages/Packs';
+import { Cards } from './Pages/Cards';
 
 function App() {
     useEffect(() => {
@@ -39,6 +41,10 @@ function App() {
                         <Route path="/registration" element={<RegistrationPage/>}/>
                         <Route path="/password_reset" element={<PasswordReset/>}/>
                         <Route path="/new_password/:token" element={<NewPassword/>}/>
+                        <Route path="/packs">
+                          <Route path="" element={<Packs/>} />
+                          <Route path=":id" element={<Cards/>} />
+                        </Route>
                         <Route path="/test" element={<Test/>}/>
                         <Route path="/404" element={<Page404/>}/>
                         <Route path="*" element={<Navigate to={'/404'}/>}/>

@@ -1,0 +1,40 @@
+.wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.button {
+  margin-right: 20px;
+  padding: 0;
+  line-height: 1.1;
+  background-color: transparent;
+  border: none;
+  font-weight: 700;
+  color: #2D2E46;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.triangle {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(50% - 2px);
+  height: 6px;
+  border: 8px solid transparent;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 8px solid #2D2E46;
+  transform-origin: center 4px;
+  transition: 0.2s;
+}
+
+.triangleAsc {
+  display: block;
+  transform: rotate(180deg);
+}
+
+.triangleDesc {
+  display: block;
+}

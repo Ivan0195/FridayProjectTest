@@ -22,3 +22,24 @@ export type NewPasswordPayloadType = {
   password: string
   resetPasswordToken: string
 }
+
+export type CardsPackPayloadType = {
+  packName?: string;
+  min?: number;
+  max?: number;
+  sortPacks?: string;
+  page?: number;
+  pageCount?: number;
+  user_id?: string;
+};
+
+export type CardsPayloadType = {
+  cardAnswer?: string
+  cardQuestion?: string
+  cardsPack_id: string
+  min?: number
+  max?: string
+  sortCards?: string
+  page?: number
+  pageCount?: number
+};

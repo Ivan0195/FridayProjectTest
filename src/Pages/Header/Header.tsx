@@ -6,6 +6,7 @@ import {MenuItem} from "./MenuItem/MenuItem";
 import React from "react";
 import {useTypedDispatch} from "../../bll/store";
 import {logoutTC} from "../../bll/login-reducer";
+import { RoutesEnum } from '../../types/enums/routes';
 
 export const Header = () => {
     const dispatch = useTypedDispatch()
@@ -16,11 +17,11 @@ export const Header = () => {
         <div className={s.header}>
             <h2 className={s.headerText}>It-incubator</h2>
             <div className={s.menu}>
-                <MenuItem title={'Packs list'} link={'/ty'} icon={packsListIcon}/>
-                <MenuItem title={'Profile'} link={'/profile'} icon={profileIcon}/>
+                <MenuItem title={'Packs list'} link={RoutesEnum.Packs} icon={packsListIcon}/>
+                <MenuItem title={'Profile'} link={RoutesEnum.Profile} icon={profileIcon}/>
             </div>
             <div className={s.logout}>
-                <MenuItem title={'Logout'} onClick={logout} link={'/login'} icon={logoutIcon}/>
+                <MenuItem title={'Logout'} onClick={logout} link={RoutesEnum.Login} icon={logoutIcon}/>
             </div>
             {/*<a onClick={logout} className={s.logout}>Logout</a>*/}
         </div>

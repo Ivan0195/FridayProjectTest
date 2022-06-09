@@ -9,6 +9,7 @@ import {ProfileActionsType, profileReducer} from "./profile-reducer";
 import {appStatusReducer, SetAppStatusActionType} from "./common-app-reducer";
 import resetPasswordReducer, {ResetPasswordActionsType} from "./reset-password-reducer";
 import newPasswordReducer, {NewPasswordActionsType} from "./new-password-reducer";
+import { PacksReducer, ActionsType as CardsPackActionsType } from './packs-reducer';
 
 const rootReducer = combineReducers({
     registration: registrationReducer,
@@ -16,13 +17,22 @@ const rootReducer = combineReducers({
     appStatus: appStatusReducer,
     resetPassword: resetPasswordReducer,
     login: loginReducer,
-    newPassword: newPasswordReducer
+    newPassword: newPasswordReducer,
+    cardsPack: PacksReducer,
 });
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
-export type AppActionType = LoginActionsType | SetAppStatusActionType | ResetPasswordActionsType | ProfileActionsType | RegistrationActionsType | NewPasswordActionsType // сюда нужно дописать общий тип для вашего редьюсера
+export type AppActionType =
+  LoginActionsType
+  | SetAppStatusActionType
+  | ResetPasswordActionsType
+  | ProfileActionsType
+  | RegistrationActionsType
+  | NewPasswordActionsType
+  | CardsPackActionsType // сюда нужно дописать общий тип для вашего редьюсера
+
 export type AppDispatch = typeof store.dispatch;
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector;
 export type TypedDispatch = ThunkDispatch<AppRootStateType, any, AppActionType>;
