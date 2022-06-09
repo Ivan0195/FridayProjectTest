@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {useTypedDispatch} from "../../../bll/store";
-import {setPackNameAC, setSortPacksAC} from "../../../bll/packs-filter-settings-reducer";
+import {setSortPacksAC} from "../../../bll/packs-filter-settings-reducer";
+import s from './SortPacksBlock.module.css'
 
 export type SortByType = {
     sortVar: boolean,
-    sortFunc: (sortVar:boolean)=> void,
+    sortFunc: (sortVar: boolean) => void,
     sortParam: string
 }
 
@@ -19,7 +20,7 @@ export const SortPacksBlock = () => {
     const nameParams = {
         sortVar: sortByNameUp,
         sortFunc: setSortByNameUp,
-        sortParam: 'name'
+        sortParam: 'user_name'
     }
 
     const cardsParams = {
@@ -40,10 +41,13 @@ export const SortPacksBlock = () => {
     }
 
     return (
-        <div>
-            <div onClick={()=>onClickHandler(nameParams)}>Name</div>
-            <div onClick={()=>onClickHandler(cardsParams)}>Cards</div>
-            <div onClick={()=>onClickHandler(updateParams)}>Last Update</div>
+        <div className={s.container}>
+            <div className={s.sortButton}
+                 onClick={() => onClickHandler(nameParams)}>Name {sortByNameUp ? '▲' : '▼'}</div>
+            <div className={s.sortButton}
+                 onClick={() => onClickHandler(cardsParams)}>Cards {sortByCardsUp ? '▲' : '▼'}</div>
+            <div className={s.sortButton}
+                 onClick={() => onClickHandler(updateParams)}>Last Update {sortByUpdateUp ? '▲' : '▼'}</div>
             <div>Made By</div>
             <div>Actions</div>
         </div>

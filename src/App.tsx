@@ -16,6 +16,7 @@ import LinearPreloader from "./components/common/LinearPreloader/LinearPreloader
 import {LoginContainer} from "./Pages/LoginPage/LoginContainer";
 import {Header} from "./Pages/Header/Header";
 import {NewPassword} from "./Pages/NewPasswordPage/NewPassword";
+import {PacksList} from "./Pages/PacksListPage/PacksList";
 import { Packs } from './Pages/Packs';
 import { Cards } from './Pages/Cards';
 
@@ -37,6 +38,7 @@ function App() {
                 <Routes>
                         <Route path="/" element={<Navigate to={'/profile'}/>}/>
                         <Route path="/profile" element={<Profile/>}/>
+                        <Route path="/packs_list" element={<PacksList/>}/>
                         <Route path="/login" element={<LoginContainer/>}/>
                         <Route path="/registration" element={<RegistrationPage/>}/>
                         <Route path="/password_reset" element={<PasswordReset/>}/>
