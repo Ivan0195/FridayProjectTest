@@ -1,0 +1,70 @@
+.pagination {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 24px;
+    padding-top: 24px;
+    font-family: 'Lato', serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: #2D2E46;
+}
+
+.pageNumbers {
+}
+
+.buttonElement {
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    height: 24px;
+    width: 34px;
+    font-family: 'Lato', serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: #2D2E46;
+}
+
+.selected {
+    color: #F2F5F7;
+    background: #21268F;
+    border-radius: 2px;
+}
+
+.spanElement {
+    margin: 0 10px 0 6px;
+}
+
+.selectNumber {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid #635D80;
+    border-radius: 2px;
+    width: 39px;
+}
+
+.arrow {
+    width: 8px;
+    height: 8px;
+    margin: 0 6px;
+    border-top: 2px solid #2D2E46;
+    border-left: 2px solid #2D2E46;
+}
+
+.arrow:disabled {
+    cursor: default;
+    opacity: 40%;
+}
+
+.nextArrow {
+    transform: rotate(135deg);
+}
+
+.prevArrow {
+    transform: rotate(-45deg);
+}
+
+.showCards {
+    margin-left: 10px;
+}
+
