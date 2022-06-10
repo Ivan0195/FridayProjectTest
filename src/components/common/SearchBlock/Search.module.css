@@ -8,16 +8,16 @@
 
 .icon {
     position: absolute;
-    left: 4%;
-    top: 32%;
-    bottom: 32%;
+    left: 17px;
+    top: 12px;
+    bottom: 14px;
     cursor: pointer;
 
 }
 
 .searchInput {
     height: 36px;
-    width: 460px;
+    min-width: 460px;
     background: #ECECF9;
     opacity: 0.5;
     border: 1px solid #635D80;

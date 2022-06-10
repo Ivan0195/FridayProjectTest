@@ -20,8 +20,10 @@ export type SetCardsFilterActionType = ReturnType<typeof setCardAnswerAC>
     | ReturnType<typeof setCardsPageCountAC>
     | ReturnType<typeof setCardUsedIdAC>
     | ReturnType<typeof setCardsCountAC>
+    | ReturnType<typeof setCardQuestionAC>
 
 export const setCardAnswerAC = (cardAnswer: string) => ({type: 'CARDS/SET-CARDS-ANSWER', cardAnswer} as const)
+export const setCardQuestionAC = (cardQuestion: string) => ({type: 'CARDS/SET-CARDS-QUESTION', cardQuestion} as const)
 // export const setMinCardsCountAC = (min: number) => ({type: 'PACKS-FILTER/SET-PACK-MIN-CARDS', min} as const)
 // export const setMaxCardsCountAC = (max: number) => ({type: 'PACKS-FILTER/SET-PACK-MAX-CARDS', max} as const)
 export const setSortCardsAC = (sortBy: string) => ({type: 'CARDS/SET-CARD-SORT-BY', sortBy} as const)
@@ -40,6 +42,8 @@ export const cardsReducer = (state: FilterSettingsInitialStateType = initialStat
     switch (action.type) {
         case 'CARDS/SET-CARDS-ANSWER':
             return {...state, cardAnswer: action.cardAnswer, page: 1}
+        case "CARDS/SET-CARDS-QUESTION":
+            return {...state, cardQuestion: action.cardQuestion, page: 1}
         // case "PACKS-FILTER/SET-PACK-MIN-CARDS":
         //     return {...state, min: action.min, page: 1}
         // case "PACKS-FILTER/SET-PACK-MAX-CARDS":

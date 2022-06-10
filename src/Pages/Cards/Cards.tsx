@@ -9,7 +9,7 @@ import {fetchCard, getCards, setCards} from '../../bll/packs-reducer';
 import {useSelector} from 'react-redux';
 import {Search} from '../../components/common/SearchBlock/Search';
 import {Pagination} from '../../components/common/Pagination/Pagination';
-import {setCardAnswerAC, setCardsPageAC, setCardsPageCountAC} from "../../bll/cards-reducer";
+import {setCardAnswerAC, setCardQuestionAC, setCardsPageAC, setCardsPageCountAC} from "../../bll/cards-reducer";
 
 const columns = [
     {
@@ -39,6 +39,8 @@ export const Cards = () => {
     const currentPage = useAppSelector(state => state.cardsSettings.page)
     const itemsOnPageCount = useAppSelector(state => state.cardsSettings.pageCount)
     const totalItemsCount = useAppSelector(state => state.cardsSettings.totalCardsCount)
+    const cardQuestion = useAppSelector(state => state.cardsSettings.cardQuestion)
+    const cardAnswer = useAppSelector(state => state.cardsSettings.cardAnswer)
     const dispatch = useTypedDispatch();
     const cards = useSelector<AppRootStateType, CardsResponseType | null>(getCards);
     const {id} = useParams<{ id: string }>();
@@ -51,10 +53,11 @@ export const Cards = () => {
         return () => {
             dispatch(setCards(null));
         };
-    }, [dispatch, id]);
+    }, [dispatch, id, cardQuestion]);
 
     const onChangeSearchHandler = (value: string) => {
         dispatch(setCardAnswerAC(value))
+        dispatch(setCardQuestionAC(value))
     }
 
     const onPageChangedHandler = (pageNumber: number) => {

@@ -10,12 +10,9 @@ export const Search = (props: SearchPropsType) => {
     const [value, setValue] = useState('')
     const debouncedSearchTerm = useDebounce(value, 500)
 
-    useEffect(()=>{
-        if(debouncedSearchTerm) {
-            props.onChange(debouncedSearchTerm)
-        }
-    },[debouncedSearchTerm])
-
+    useEffect(() => {
+        props.onChange(debouncedSearchTerm)
+    }, [debouncedSearchTerm])
 
 
     const onChangeSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +47,7 @@ export default function useDebounce(value: string, delay: number) {
             return () => {
                 clearTimeout(handler);
             };
-        },[value]
+        }, [value]
     );
 
     return debouncedValue;

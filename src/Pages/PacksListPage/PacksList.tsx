@@ -24,6 +24,7 @@ export const PacksList = () => {
     const user_id = useAppSelector(state => state.packsFilterSettings.user_id)
     const dispatch = useTypedDispatch()
 
+    console.log(packName)
     useEffect(() => {
         dispatch(fetchCardsPack());
     }, [dispatch, itemsOnPageCount, totalItemsCount, packName, min, max, currentPage, sortPacks, user_id]);
@@ -62,7 +63,7 @@ export const PacksList = () => {
                     <h1 className={s.packsBarTitle}>Packs List</h1>
                     <div className={s.packsBarActions}>
                         <Search onChange={onChangeSearchHandler}/>
-                        <SuperButton>Add new pack</SuperButton>
+                        <SuperButton style={{width:'184px'}}>Add new pack</SuperButton>
                     </div>
                     <div className={s.packsBarContent}>
                         <Packs/>
