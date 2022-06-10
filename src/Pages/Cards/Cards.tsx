@@ -29,7 +29,9 @@ const columns = [
         value: <SortableTableHeader id="user_name" onClick={console.log}>Grade</SortableTableHeader>,
         render: (card: CardType) => {
             return (
-                <Rate value={Math.floor(card.grade)}/>
+                <div style={{display: 'flex'}}>
+                    <Rate value={Math.floor(card.grade)}/>
+                </div>
             );
         },
     },
@@ -69,15 +71,6 @@ export const Cards = () => {
     }
 
     return (
-        <>
-            <Search onChange={onChangeSearchHandler}/>
-            <Table columns={columns} items={cards ? cards.cards : []} itemRowKey="_id"/>
-            <Pagination currentPage={currentPage}
-                        itemsOnPageCount={itemsOnPageCount}
-                        totalItemsCount={totalItemsCount}
-                        onPageChanged={onPageChangedHandler}
-                        onChangeItemsOnPageCount={onChangeItemsCountHandler}
-            />
-        </>
+      <Table columns={columns} items={cards ? cards.cards : []} itemRowKey="_id"/>
     );
 };

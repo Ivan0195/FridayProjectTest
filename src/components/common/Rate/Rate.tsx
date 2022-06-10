@@ -13,7 +13,7 @@ const maxRateValue = 5;
 
 export const Rate: React.FC<RatePropsType> = ({ value, onChange }) => {
   return (
-    <div>
+    <>
       {
         [...Array(maxRateValue)].map((item, index) => {
           return (
@@ -28,6 +28,6 @@ export const Rate: React.FC<RatePropsType> = ({ value, onChange }) => {
           );
         })
       }
-    </div>
+    </>
   );
 };
