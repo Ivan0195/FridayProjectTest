@@ -7,14 +7,9 @@ import {AppRootStateType, useAppSelector, useTypedDispatch} from "../../bll/stor
 import {Navigate} from "react-router-dom";
 import {Packs} from '../Packs';
 import {Pagination} from '../../components/common/Pagination/Pagination';
-import {
-    setPackNameAC,
-    setPacksPageAC,
-    setPacksPageCountAC,
-} from '../../bll/packs-filter-settings-reducer';
+import {setPackNameAC, setPacksPageAC, setPacksPageCountAC,} from '../../bll/packs-filter-settings-reducer';
 import {Search} from '../../components/common/SearchBlock/Search';
 import {fetchCardsPack} from '../../bll/packs-reducer';
-import icon from "../../assets/images/circleLoading.gif";
 
 export const PacksList = () => {
     const loadingStatus = useAppSelector<boolean>(state => state.cardsPack.isLoading)
@@ -49,39 +44,35 @@ export const PacksList = () => {
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }
-
     return (
         <div className={s.wrapper}>
-            {loadingStatus
-                ? <div className={s.icon}>  <img src={icon} alt="aa" /></div>
-                : <div className={s.container}>
-                    <div className={s.sideBar}>
-                        <h3 className={s.sideBarTitle}>Show Packs Cards</h3>
-                        <div className={s.ownSelector}>
-                            <AllMySelector/>
-                        </div>
-                        <h3 className={s.sideBarTitle}>Number of Cards</h3>
-                        <div className={s.ownSelector}>
-                            <DoubleRange/>
-                        </div>
+            <div className={s.container}>
+                <div className={s.sideBar}>
+                    <h3 className={s.sideBarTitle}>Show Packs Cards</h3>
+                    <div className={s.ownSelector}>
+                        <AllMySelector/>
                     </div>
-                    <div className={s.packsBar}>
-                        <h1 className={s.packsBarTitle}>Packs List</h1>
-                        <div className={s.packsBarActions}>
-                            <Search onChange={onChangeSearchHandler}/>
-                        </div>
-                        <div className={s.packsBarContent}>
-                            <Packs/>
-                        </div>
-                        <Pagination currentPage={currentPage}
-                                    itemsOnPageCount={itemsOnPageCount}
-                                    totalItemsCount={totalItemsCount}
-                                    onPageChanged={onPageChangedHandler}
-                                    onChangeItemsOnPageCount={onChangeItemsCountHandler}
-                        />
+                    <h3 className={s.sideBarTitle}>Number of Cards</h3>
+                    <div className={s.ownSelector}>
+                        <DoubleRange/>
                     </div>
                 </div>
-            }
+                <div className={s.packsBar}>
+                    <h1 className={s.packsBarTitle}>Packs List</h1>
+                    <div className={s.packsBarActions}>
+                        <Search onChange={onChangeSearchHandler}/>
+                    </div>
+                    <div className={s.packsBarContent}>
+                        <Packs/>
+                    </div>
+                    <Pagination currentPage={currentPage}
+                                itemsOnPageCount={itemsOnPageCount}
+                                totalItemsCount={totalItemsCount}
+                                onPageChanged={onPageChangedHandler}
+                                onChangeItemsOnPageCount={onChangeItemsCountHandler}
+                    />
+                </div>
+            </div>
         </div>
     );
 };
