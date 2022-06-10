@@ -6,13 +6,15 @@ import { Cards } from '../Cards';
 import { useAppSelector, useTypedDispatch } from '../../bll/store';
 import { fetchCard, setCards } from '../../bll/packs-reducer';
 import { Link, useParams } from 'react-router-dom';
-import { setCardAnswerAC, setCardsPageAC, setCardsPageCountAC } from '../../bll/cards-reducer';
+import {setCardAnswerAC, setCardQuestionAC, setCardsPageAC, setCardsPageCountAC} from '../../bll/cards-reducer';
 import { RoutesEnum } from '../../types/enums/routes';
 
 export const CardsPage = () => {
   const currentPage = useAppSelector(state => state.cardsSettings.page)
   const itemsOnPageCount = useAppSelector(state => state.cardsSettings.pageCount)
   const totalItemsCount = useAppSelector(state => state.cardsSettings.totalCardsCount)
+  const cardQuestion = useAppSelector(state => state.cardsSettings.cardQuestion)
+  const cardAnswer = useAppSelector(state => state.cardsSettings.cardAnswer)
   const dispatch = useTypedDispatch();
   const {id} = useParams<{ id: string }>();
 
@@ -24,10 +26,11 @@ export const CardsPage = () => {
     return () => {
       dispatch(setCards(null));
     };
-  }, [dispatch, id]);
+  }, [dispatch, id, cardQuestion, itemsOnPageCount, currentPage, totalItemsCount, cardAnswer]);
 
   const onChangeSearchHandler = (value: string) => {
     dispatch(setCardAnswerAC(value))
+    dispatch(setCardQuestionAC(value))
   }
 
   const onPageChangedHandler = (pageNumber: number) => {
@@ -47,7 +50,7 @@ export const CardsPage = () => {
             Pack Name
           </Link>
           <div className={s.packsBarActions}>
-            <Search onChange={() => {}}/>
+            <Search onChange={onChangeSearchHandler}/>
           </div>
           <div className={s.packsBarContent}>
             <Cards/>

@@ -1,15 +1,10 @@
 import {Table} from '../../components/Table';
 import {SortableTableHeader} from '../../components/Table/elements/SortableTableHeader';
-import {CardsResponseType, CardType} from '../../types/responseTypes';
-import {useParams} from 'react-router-dom';
+import { CardType} from '../../types/responseTypes';
 import {Rate} from '../../components/common/Rate';
-import React, {useEffect} from 'react';
-import {AppRootStateType, useAppSelector, useTypedDispatch} from '../../bll/store';
-import {fetchCard, getCards, setCards} from '../../bll/packs-reducer';
-import {useSelector} from 'react-redux';
-import {Search} from '../../components/common/SearchBlock/Search';
-import {Pagination} from '../../components/common/Pagination/Pagination';
-import {setCardAnswerAC, setCardQuestionAC, setCardsPageAC, setCardsPageCountAC} from "../../bll/cards-reducer";
+import React from 'react';
+import {useAppSelector} from '../../bll/store';
+import {getCards} from '../../bll/packs-reducer';
 
 const columns = [
     {
@@ -38,37 +33,7 @@ const columns = [
 ];
 
 export const Cards = () => {
-    const currentPage = useAppSelector(state => state.cardsSettings.page)
-    const itemsOnPageCount = useAppSelector(state => state.cardsSettings.pageCount)
-    const totalItemsCount = useAppSelector(state => state.cardsSettings.totalCardsCount)
-    const cardQuestion = useAppSelector(state => state.cardsSettings.cardQuestion)
-    const cardAnswer = useAppSelector(state => state.cardsSettings.cardAnswer)
-    const dispatch = useTypedDispatch();
-    const cards = useSelector<AppRootStateType, CardsResponseType | null>(getCards);
-    const {id} = useParams<{ id: string }>();
-
-    useEffect(() => {
-        if (id) {
-            dispatch(fetchCard(id));
-        }
-
-        return () => {
-            dispatch(setCards(null));
-        };
-    }, [dispatch, id, cardQuestion]);
-
-    const onChangeSearchHandler = (value: string) => {
-        dispatch(setCardAnswerAC(value))
-        dispatch(setCardQuestionAC(value))
-    }
-
-    const onPageChangedHandler = (pageNumber: number) => {
-        dispatch(setCardsPageAC(pageNumber))
-    }
-
-    const onChangeItemsCountHandler = (value: number) => {
-        dispatch(setCardsPageCountAC(value))
-    }
+    const cards = useAppSelector(getCards);
 
     return (
       <Table columns={columns} items={cards ? cards.cards : []} itemRowKey="_id"/>
