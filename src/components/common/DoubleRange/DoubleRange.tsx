@@ -2,11 +2,13 @@ import React, {useState} from 'react';
 import {useAppSelector, useTypedDispatch} from "../../../bll/store";
 import {setMaxCardsCountAC, setMinCardsCountAC} from "../../../bll/packs-filter-settings-reducer";
 import SuperDoubleRange from "../../../SuperComponents/SuperDoubleRange/SuperDoubleRange";
+import {notificationHandler} from "../../../utils/errorUtils";
 
 export const DoubleRange = () => {
 
     const dispatch = useTypedDispatch()
 
+    const loadingStatus = useAppSelector<boolean>(state => state.cardsPack.isLoading)
     const minCount = useAppSelector<number>(state => state.packsFilterSettings.min)
     const maxCount = useAppSelector<number>(state => state.packsFilterSettings.max)
 
@@ -17,15 +19,21 @@ export const DoubleRange = () => {
     const maxValueChanger = (valueMin <= valueMax) ? valueMax : 50
     const numberContentMax = (valueMin <= valueMax) ? valueMax : ''
 
-    const onMouseUpHandler = () => {
+    const dispatchValues = () => {
         dispatch(setMinCardsCountAC(valueMin))
         dispatch(setMaxCardsCountAC(valueMax))
+    }
+
+    const onMouseUpHandler = () => {
+        loadingStatus
+            ? notificationHandler('wait for previous operation')
+            : dispatchValues()
     }
     return (
 
         <div>
-            <SuperDoubleRange onChangeRange={setValueMin}
-                              onChangeRange2={setValueMax}
+            <SuperDoubleRange onChangeRange={loadingStatus ? ()=>{} : setValueMin}
+                              onChangeRange2={loadingStatus ? ()=>{} : setValueMax}
                               minValueChanger={minValueChanger}
                               maxValueChanger={maxValueChanger}
                               numberContentMin={numberContentMin}
