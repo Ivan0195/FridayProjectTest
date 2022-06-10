@@ -1,0 +1,44 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #EDF0F6;
+  padding: 25px 35px;
+}
+
+.closeButton {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.closeButton::before, .closeButton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: calc(50% - 1px);
+  width: 2px;
+  height: 100%;
+  background-color: #2D2E46;
+  cursor: pointer;
+  transform-origin: center;
+}
+
+.closeButton::before {
+  transform: rotate(45deg);
+}
+
+.closeButton::after {
+  transform: rotate(-45deg);
+}
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+}

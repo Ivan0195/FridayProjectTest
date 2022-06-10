@@ -1,42 +1,42 @@
 import React, { useState } from 'react';
 import styles from './SortableTableHeader.module.css';
 import cn from 'classnames';
+import { OrdersType } from '../../../../types/common';
 
 type SortableTableHeaderType = {
+  id: string | number;
   children: JSX.Element | string;
-  onClick: (order: OrdersType) => void;
+  onClick: ({ id, order }: { id: string | number, order: OrdersType }) => void;
 };
 
-type OrdersType = 'desc' | 'asc' | 'default';
-
 type StatebBehaviorType = {
-  next: (setNextState: React.Dispatch<React.SetStateAction<OrdersType>>, cb: (order: OrdersType) => void) => void;
+  next: (id: string | number, setNextState: React.Dispatch<React.SetStateAction<OrdersType>>, cb: ({ id, order }: { id: string | number, order: OrdersType }) => void) => void;
   icon: string | null;
 };
 
 const stateBehavior: Record<OrdersType, StatebBehaviorType> = {
   desc: {
-    next: (setNextState, cb) => {
+    next: (id: string | number, setNextState, cb) => {
       setNextState(() => {
-        cb('asc')
+        cb({ id, order: 'asc' });
         return 'asc';
       })
     },
     icon: '',
   },
   asc: {
-    next: (setNextState, cb) => {
+    next: (id: string | number, setNextState, cb) => {
       setNextState(() => {
-        cb('default')
+        cb({ id, order: 'default' });
         return 'default';
       })
     },
     icon: '',
   },
   default: {
-    next: (setNextState, cb) => {
+    next: (id: string | number, setNextState, cb) => {
       setNextState(() => {
-        cb('desc')
+        cb({ id, order: 'desc' });
         return 'desc';
       })
     },
@@ -44,10 +44,10 @@ const stateBehavior: Record<OrdersType, StatebBehaviorType> = {
   },
 };
 
-export const SortableTableHeader: React.FC<SortableTableHeaderType> = ({ children, onClick }) => {
+export const SortableTableHeader: React.FC<SortableTableHeaderType> = ({ id, children, onClick }) => {
   const [orderState, setOrderState] = useState<OrdersType>('default');
   const currentBehavior = stateBehavior[orderState];
-  const handleClick = () => currentBehavior.next(setOrderState, onClick);
+  const handleClick = () => currentBehavior.next(id, setOrderState, onClick);
 
   return (
     <div className={styles.wrapper} onClick={handleClick}>

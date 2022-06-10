@@ -19,7 +19,6 @@ export const Header = () => {
             <div className={s.menu}>
                 <MenuItem title={'Packs list'} link={RoutesEnum.Packs} icon={packsListIcon}/>
                 <MenuItem title={'Profile'} link={RoutesEnum.Profile} icon={profileIcon}/>
-                <MenuItem title={'Packs list Ivan'} link={'/packs_list'} icon={packsListIcon}/>
             </div>
             <div className={s.logout}>
                 <MenuItem title={'Logout'} onClick={logout} link={RoutesEnum.Login} icon={logoutIcon}/>

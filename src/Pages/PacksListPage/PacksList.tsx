@@ -2,13 +2,16 @@ import React, { useEffect } from 'react';
 import s from './PacksListPage.module.css'
 import {AllMySelector} from "../../components/common/AllMySelector/AllMySelector";
 import {DoubleRange} from "../../components/common/DoubleRange/DoubleRange";
-import {SortPacksBlock} from "../../components/common/SortPacksBlock/SortPacksBlock";
 import {useSelector} from "react-redux";
 import { AppRootStateType, useAppSelector, useTypedDispatch } from "../../bll/store";
 import {Navigate} from "react-router-dom";
 import { Packs } from '../Packs';
 import { Pagination } from '../../components/common/Pagination/Pagination';
-import { setPackNameAC, setPacksPageAC, setPacksPageCountAC } from '../../bll/packs-filter-settings-reducer';
+import {
+    setPackNameAC,
+    setPacksPageAC,
+    setPacksPageCountAC,
+} from '../../bll/packs-filter-settings-reducer';
 import { Search } from '../../components/common/SearchBlock/Search';
 import { fetchCardsPack } from '../../bll/packs-reducer';
 
@@ -49,16 +52,21 @@ export const PacksList = () => {
         <div className={s.wrapper}>
             <div className={s.container}>
                 <div className={s.sideBar}>
-                    <h3>Show Packs Cards</h3>
-                    <AllMySelector/>
-                    <h3>Number of Cards</h3>
-                    <DoubleRange/>
+                    <h3 className={s.sideBarTitle}>Show Packs Cards</h3>
+                    <div className={s.ownSelector}>
+                        <AllMySelector/>
+                    </div>
+                    <h3 className={s.sideBarTitle}>Number of Cards</h3>
+                    <div className={s.ownSelector}>
+                        <DoubleRange/>
+                    </div>
                 </div>
                 <div className={s.packsBar}>
-                    <h1>Packs List</h1>
-                    <Search onChange={onChangeSearchHandler}/>
-                    <SortPacksBlock/>
-                    <div>
+                    <h1 className={s.packsBarTitle}>Packs List</h1>
+                    <div className={s.packsBarActions}>
+                        <Search onChange={onChangeSearchHandler}/>
+                    </div>
+                    <div className={s.packsBarContent}>
                         <Packs />
                     </div>
                     <Pagination currentPage={currentPage}

@@ -4,18 +4,24 @@ import { handleNetworkError } from '../utils/errorUtils';
 import { AxiosError } from 'axios';
 import { AppDispatch, AppRootStateType } from './store';
 import { CardsPackPayloadType, CardsPayloadType } from '../types/requestTypes';
-import { setAppStatusAC } from './common-app-reducer';
 import { setCardsCountAC } from './packs-filter-settings-reducer';
 
 type InitialStateType = {
   cardsPack: null | CardsPackResponseType;
   cards: null | CardsResponseType;
+  isLoading: boolean;
 };
 
 const initialState: InitialStateType = {
   cardsPack: null,
   cards: null,
+  isLoading: false,
 };
+
+export const setLoadingStatus = (status: boolean) => ({
+  type: 'packs/setLoadingStatus',
+  payload: status,
+} as const);
 
 export const setCardsPack = (cardsPack: CardsPackResponseType | null) => ({
   type: 'packs/setCardsPack',
@@ -30,6 +36,7 @@ export const setCards = (cards: CardsResponseType | null) => ({
 export const fetchCardsPack = () =>
   async (dispatch: AppDispatch, getState: () => AppRootStateType) => {
     try {
+      dispatch(setLoadingStatus(true));
       const payload: CardsPackPayloadType = {
         pageCount: getState().packsFilterSettings.pageCount || 10,
         packName: getState().packsFilterSettings.packName,
@@ -45,6 +52,8 @@ export const fetchCardsPack = () =>
     } catch (e) {
       const err = e as AxiosError<ErrorResponseType>;
       handleNetworkError(err);
+    } finally {
+      dispatch(setLoadingStatus(false));
     }
   };
 
@@ -63,10 +72,12 @@ export const fetchCard = (id: string) =>
     }
   };
 
-export type ActionsType = ReturnType<typeof setCardsPack> | ReturnType<typeof setCards>;
+export type ActionsType = ReturnType<typeof setCardsPack> | ReturnType<typeof setCards> | ReturnType<typeof setLoadingStatus>;
 
 export const PacksReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
+    case 'packs/setLoadingStatus':
+      return { ...state, isLoading: action.payload };
     case 'packs/setCardsPack':
       return { ...state, cardsPack: action.payload };
     case 'packs/setCards':
@@ -78,3 +89,4 @@ export const PacksReducer = (state: InitialStateType = initialState, action: Act
 
 export const getCardsPack = (state: AppRootStateType) => state.cardsPack.cardsPack;
 export const getCards = (state: AppRootStateType) => state.cardsPack.cards;
+export const getCardsPackLoadingStatus = (state: AppRootStateType) => state.cardsPack.isLoading;

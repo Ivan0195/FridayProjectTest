@@ -1,4 +1,5 @@
 .table {
+  position: relative;
   width: 100%;
   box-shadow: 0 4px 14px rgba(45, 46, 70, 0.15);
   border-collapse: collapse;
@@ -25,4 +26,8 @@
 .tableCell {
   padding: 16px 25px;
   font-weight: 400;
+}
+
+.tableCellCentered {
+  text-align: center;
 }

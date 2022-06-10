@@ -1,7 +1,7 @@
 export type AnyObjectType = Record<string, unknown>;
 
 export type ChildrenComponentsType = {
-  children: JSX.Element | JSX.Element[] | string;
+  children: JSX.Element | JSX.Element[] | string | string[];
 };
 
 export type ClassNameType = {
@@ -9,3 +9,5 @@ export type ClassNameType = {
 };
 
 export type BaseCommonComponentPropsType = ChildrenComponentsType & ClassNameType;
+
+export type OrdersType = 'desc' | 'asc' | 'default';

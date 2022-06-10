@@ -13,19 +13,19 @@ import { Pagination } from '../../components/common/Pagination/Pagination';
 const columns = [
   {
     id: 'question',
-    value: <SortableTableHeader onClick={console.log}>Question</SortableTableHeader>,
+    value: <SortableTableHeader id="question" onClick={console.log}>Question</SortableTableHeader>,
   },
   {
     id: 'answer',
-    value: <SortableTableHeader onClick={console.log}>Answer</SortableTableHeader>,
+    value: <SortableTableHeader id="answer" onClick={console.log}>Answer</SortableTableHeader>,
   },
   {
     id: 'updated',
-    value: <SortableTableHeader onClick={console.log}>Last Updated</SortableTableHeader>,
+    value: <SortableTableHeader id="updated" onClick={console.log}>Last Updated</SortableTableHeader>,
   },
   {
     id: 'user_name',
-    value: <SortableTableHeader onClick={console.log}>Grade</SortableTableHeader>,
+    value: <SortableTableHeader id="user_name" onClick={console.log}>Grade</SortableTableHeader>,
     render: (card: CardType) => {
       return (
         <Rate value={Math.floor(card.grade)} />
