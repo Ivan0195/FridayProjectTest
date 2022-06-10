@@ -20,7 +20,7 @@ export const SortPacksBlock = () => {
     const nameParams = {
         sortVar: sortByNameUp,
         sortFunc: setSortByNameUp,
-        sortParam: 'user_name'
+        sortParam: 'name'
     }
 
     const cardsParams = {

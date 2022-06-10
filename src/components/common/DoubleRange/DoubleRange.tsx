@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useTypedDispatch} from "../../../bll/store";
+import {useAppSelector, useTypedDispatch} from "../../../bll/store";
 import {setMaxCardsCountAC, setMinCardsCountAC} from "../../../bll/packs-filter-settings-reducer";
 import SuperDoubleRange from "../../../SuperComponents/SuperDoubleRange/SuperDoubleRange";
 
@@ -7,8 +7,11 @@ export const DoubleRange = () => {
 
     const dispatch = useTypedDispatch()
 
-    const [valueMin, setValueMin] = useState(0)
-    const [valueMax, setValueMax] = useState(103)
+    const minCount = useAppSelector<number>(state => state.packsFilterSettings.min)
+    const maxCount = useAppSelector<number>(state => state.packsFilterSettings.max)
+
+    const [valueMin, setValueMin] = useState(minCount)
+    const [valueMax, setValueMax] = useState(maxCount)
     const minValueChanger = (valueMin <= valueMax) ? valueMin : 50
     const numberContentMin = (valueMin <= valueMax) ? valueMin : 'invalid values'
     const maxValueChanger = (valueMin <= valueMax) ? valueMax : 50

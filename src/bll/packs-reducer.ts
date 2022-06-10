@@ -49,7 +49,8 @@ export const fetchCardsPack = () =>
       const response = await cardsApi.getCardsPack(payload);
       dispatch(setCardsCountAC(response.data.cardPacksTotalCount));
       dispatch(setCardsPack(response.data));
-    } catch (e) {
+    }
+    catch (e) {
       const err = e as AxiosError<ErrorResponseType>;
       handleNetworkError(err);
     } finally {
