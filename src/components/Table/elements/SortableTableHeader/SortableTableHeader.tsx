@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styles from './SortableTableHeader.module.css';
 import cn from 'classnames';
 import { OrdersType } from '../../../../types/common';
+import {useAppSelector} from "../../../../bll/store";
+import {notificationHandler} from "../../../../utils/errorUtils";
 
 type SortableTableHeaderType = {
   id: string | number;
@@ -45,9 +47,14 @@ const stateBehavior: Record<OrdersType, StatebBehaviorType> = {
 };
 
 export const SortableTableHeader: React.FC<SortableTableHeaderType> = ({ id, children, onClick }) => {
+  const loadingStatus = useAppSelector<boolean>(state => state.cardsPack.isLoading)
   const [orderState, setOrderState] = useState<OrdersType>('default');
   const currentBehavior = stateBehavior[orderState];
-  const handleClick = () => currentBehavior.next(id, setOrderState, onClick);
+  const handleClick = () => {
+    loadingStatus
+    ? notificationHandler('wait for previous operation')
+    : currentBehavior.next(id, setOrderState, onClick);
+  }
 
   return (
     <div className={styles.wrapper} onClick={handleClick}>
