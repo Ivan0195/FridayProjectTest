@@ -19,7 +19,7 @@ export type SetCardsFilterActionType = ReturnType<typeof setCardAnswerAC>
     | ReturnType<typeof setCardsPageAC>
     | ReturnType<typeof setCardsPageCountAC>
     | ReturnType<typeof setCardUsedIdAC>
-    | ReturnType<typeof setCardsCountAC>
+    | ReturnType<typeof setCardsCountOnPackAC>
     | ReturnType<typeof setCardQuestionAC>
 
 export const setCardAnswerAC = (cardAnswer: string) => ({type: 'CARDS/SET-CARDS-ANSWER', cardAnswer} as const)
@@ -33,7 +33,7 @@ export const setCardsPageCountAC = (pageCount: number) => ({
     pageCount
 } as const)
 export const setCardUsedIdAC = (id: string) => ({type: 'CARDS/SET-CARD-USER-ID', id} as const)
-export const setCardsCountAC = (totalCardsCount: number) => ({
+export const setCardsCountOnPackAC = (totalCardsCount: number) => ({
     type: 'CARDS/SET-CARDS-COUNT',
     totalCardsCount
 } as const)

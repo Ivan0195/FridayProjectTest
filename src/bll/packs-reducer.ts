@@ -5,6 +5,7 @@ import {AxiosError} from 'axios';
 import {AppDispatch, AppRootStateType} from './store';
 import {CardsPackPayloadType, CardsPayloadType} from '../types/requestTypes';
 import {setCardsCountAC} from './packs-filter-settings-reducer';
+import {setCardsCountOnPackAC} from "./cards-reducer";
 
 type InitialStateType = {
     cardsPack: null | CardsPackResponseType;
@@ -68,6 +69,7 @@ export const fetchCard = (id: string) =>
             }; // getState...
             const response = await cardsApi.getCards(payload);
             dispatch(setCards(response.data));
+            dispatch(setCardsCountOnPackAC(response.data.cardsTotalCount))
         } catch (e) {
             const err = e as AxiosError<ErrorResponseType>;
             handleNetworkError(err);
