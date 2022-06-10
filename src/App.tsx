@@ -17,8 +17,7 @@ import {LoginContainer} from "./Pages/LoginPage/LoginContainer";
 import {Header} from "./Pages/Header/Header";
 import {NewPassword} from "./Pages/NewPasswordPage/NewPassword";
 import {PacksList} from "./Pages/PacksListPage/PacksList";
-import { Packs } from './Pages/Packs';
-import { Cards } from './Pages/Cards';
+import { CardsPage } from './Pages/CardsPage';
 
 function App() {
     useEffect(() => {
@@ -44,7 +43,7 @@ function App() {
                         <Route path="/new_password/:token" element={<NewPassword/>}/>
                         <Route path="/packs_list">
                           <Route path="" element={<PacksList/>} />
-                          <Route path=":id" element={<Cards/>} />
+                          <Route path=":id" element={<CardsPage/>} />
                         </Route>
                         <Route path="/test" element={<Test/>}/>
                         <Route path="/404" element={<Page404/>}/>

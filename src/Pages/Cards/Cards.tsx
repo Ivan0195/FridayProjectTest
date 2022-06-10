@@ -29,52 +29,18 @@ const columns = [
         value: <SortableTableHeader id="user_name" onClick={console.log}>Grade</SortableTableHeader>,
         render: (card: CardType) => {
             return (
-                <Rate value={Math.floor(card.grade)}/>
+                <div style={{display: 'flex'}}>
+                    <Rate value={Math.floor(card.grade)}/>
+                </div>
             );
         },
     },
 ];
 
 export const Cards = () => {
-    const currentPage = useAppSelector(state => state.cardsSettings.page)
-    const itemsOnPageCount = useAppSelector(state => state.cardsSettings.pageCount)
-    const totalItemsCount = useAppSelector(state => state.cardsSettings.totalCardsCount)
-    const dispatch = useTypedDispatch();
-    const cards = useSelector<AppRootStateType, CardsResponseType | null>(getCards);
-    const {id} = useParams<{ id: string }>();
-
-    useEffect(() => {
-        if (id) {
-            dispatch(fetchCard(id));
-        }
-
-        return () => {
-            dispatch(setCards(null));
-        };
-    }, [dispatch, id]);
-
-    const onChangeSearchHandler = (value: string) => {
-        dispatch(setCardAnswerAC(value))
-    }
-
-    const onPageChangedHandler = (pageNumber: number) => {
-        dispatch(setCardsPageAC(pageNumber))
-    }
-
-    const onChangeItemsCountHandler = (value: number) => {
-        dispatch(setCardsPageCountAC(value))
-    }
+    const cards = useAppSelector(getCards);
 
     return (
-        <>
-            <Search onChange={onChangeSearchHandler}/>
-            <Table columns={columns} items={cards ? cards.cards : []} itemRowKey="_id"/>
-            <Pagination currentPage={currentPage}
-                        itemsOnPageCount={itemsOnPageCount}
-                        totalItemsCount={totalItemsCount}
-                        onPageChanged={onPageChangedHandler}
-                        onChangeItemsOnPageCount={onChangeItemsCountHandler}
-            />
-        </>
+      <Table columns={columns} items={cards ? cards.cards : []} itemRowKey="_id"/>
     );
 };
