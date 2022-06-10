@@ -9,8 +9,9 @@ import {ProfileActionsType, profileReducer} from "./profile-reducer";
 import {appStatusReducer, SetAppStatusActionType} from "./common-app-reducer";
 import resetPasswordReducer, {ResetPasswordActionsType} from "./reset-password-reducer";
 import newPasswordReducer, {NewPasswordActionsType} from "./new-password-reducer";
-import { PacksReducer, ActionsType as CardsPackActionsType } from './packs-reducer';
+import {PacksReducer, ActionsType as CardsPackActionsType} from './packs-reducer';
 import {packsFilterSettingsReducer, SetPacksFilterActionType} from "./packs-filter-settings-reducer";
+import {cardsReducer, SetCardsFilterActionType} from "./cards-reducer";
 
 const rootReducer = combineReducers({
     registration: registrationReducer,
@@ -21,20 +22,22 @@ const rootReducer = combineReducers({
     newPassword: newPasswordReducer,
     cardsPack: PacksReducer,
     packsFilterSettings: packsFilterSettingsReducer,
+    cardsSettings: cardsReducer,
 });
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppActionType =
-  LoginActionsType
-  | SetAppStatusActionType
-  | ResetPasswordActionsType
-  | ProfileActionsType
-  | RegistrationActionsType
-  | NewPasswordActionsType
-  | CardsPackActionsType
-  | SetPacksFilterActionType // сюда нужно дописать общий тип для вашего редьюсера
+    LoginActionsType
+    | SetAppStatusActionType
+    | ResetPasswordActionsType
+    | ProfileActionsType
+    | RegistrationActionsType
+    | NewPasswordActionsType
+    | CardsPackActionsType
+    | SetPacksFilterActionType
+    | SetCardsFilterActionType// сюда нужно дописать общий тип для вашего редьюсера
 
 export type AppDispatch = typeof store.dispatch;
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector;

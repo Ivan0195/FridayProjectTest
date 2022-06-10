@@ -4,11 +4,12 @@ import {CardsResponseType, CardType} from '../../types/responseTypes';
 import {useParams} from 'react-router-dom';
 import {Rate} from '../../components/common/Rate';
 import React, {useEffect} from 'react';
-import {AppRootStateType, useTypedDispatch} from '../../bll/store';
+import {AppRootStateType, useAppSelector, useTypedDispatch} from '../../bll/store';
 import {fetchCard, getCards, setCards} from '../../bll/packs-reducer';
 import {useSelector} from 'react-redux';
 import {Search} from '../../components/common/SearchBlock/Search';
 import {Pagination} from '../../components/common/Pagination/Pagination';
+import {setCardAnswerAC, setCardsPageAC, setCardsPageCountAC} from "../../bll/cards-reducer";
 
 const columns = [
     {
@@ -35,6 +36,9 @@ const columns = [
 ];
 
 export const Cards = () => {
+    const currentPage = useAppSelector(state => state.cardsSettings.page)
+    const itemsOnPageCount = useAppSelector(state => state.cardsSettings.pageCount)
+    const totalItemsCount = useAppSelector(state => state.cardsSettings.totalCardsCount)
     const dispatch = useTypedDispatch();
     const cards = useSelector<AppRootStateType, CardsResponseType | null>(getCards);
     const {id} = useParams<{ id: string }>();
@@ -49,18 +53,27 @@ export const Cards = () => {
         };
     }, [dispatch, id]);
 
+    const onChangeSearchHandler = (value: string) => {
+        dispatch(setCardAnswerAC(value))
+    }
+
+    const onPageChangedHandler = (pageNumber: number) => {
+        dispatch(setCardsPageAC(pageNumber))
+    }
+
+    const onChangeItemsCountHandler = (value: number) => {
+        dispatch(setCardsPageCountAC(value))
+    }
+
     return (
         <>
-            <Search onChange={() => {
-            }}/>
+            <Search onChange={onChangeSearchHandler}/>
             <Table columns={columns} items={cards ? cards.cards : []} itemRowKey="_id"/>
-            <Pagination currentPage={1}
-                        itemsOnPageCount={5}
-                        totalItemsCount={45}
-                        onPageChanged={() => {
-                        }}
-                        onChangeItemsOnPageCount={() => {
-                        }}
+            <Pagination currentPage={currentPage}
+                        itemsOnPageCount={itemsOnPageCount}
+                        totalItemsCount={totalItemsCount}
+                        onPageChanged={onPageChangedHandler}
+                        onChangeItemsOnPageCount={onChangeItemsCountHandler}
             />
         </>
     );

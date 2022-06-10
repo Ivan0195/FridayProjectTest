@@ -62,7 +62,9 @@ export const fetchCard = (id: string) =>
         try {
             const payload: CardsPayloadType = {
                 cardsPack_id: id,
-                pageCount: 10,
+                pageCount: getState().cardsSettings.pageCount,
+                page: getState().cardsSettings.page,
+                cardQuestion: getState().cardsSettings.cardQuestion
             }; // getState...
             const response = await cardsApi.getCards(payload);
             dispatch(setCards(response.data));
