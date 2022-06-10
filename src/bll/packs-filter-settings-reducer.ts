@@ -1,7 +1,3 @@
-import {Dispatch} from "redux";
-import {handleNetworkError} from "../utils/errorUtils";
-import {AppRootStateType} from "./store";
-
 const initialState = {
     packName: '',
     min: 0,
@@ -41,13 +37,13 @@ export const setCardsCountAC = (totalCardsCount: number) => ({
 export const packsFilterSettingsReducer = (state: FilterSettingsInitialStateType = initialState, action: SetPacksFilterActionType): FilterSettingsInitialStateType => {
     switch (action.type) {
         case 'PACKS-FILTER/SET-PACK-NAME':
-            return {...state, packName: action.packName}
+            return {...state, packName: action.packName, page: 1}
         case "PACKS-FILTER/SET-PACK-MIN-CARDS":
-            return {...state, min: action.min}
+            return {...state, min: action.min, page: 1}
         case "PACKS-FILTER/SET-PACK-MAX-CARDS":
-            return {...state, max: action.max}
+            return {...state, max: action.max, page: 1}
         case "PACKS-FILTER/SET-PACK-SORT-BY":
-            return {...state, sortPacks: action.sortBy}
+            return {...state, sortPacks: action.sortBy, page: 1}
         case "PACKS-FILTER/SET-PACK-PAGE":
             return {...state, page: action.page}
         case "PACKS-FILTER/SET-PACK-PAGE-COUNT":

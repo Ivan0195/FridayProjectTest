@@ -12,6 +12,10 @@
 }
 
 .pageNumbers {
+   min-width: 290px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 .buttonElement {
@@ -44,9 +48,15 @@
 }
 
 .arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow:before {
+    content: '';
     width: 8px;
     height: 8px;
-    margin: 0 6px;
     border-top: 2px solid #2D2E46;
     border-left: 2px solid #2D2E46;
 }
@@ -56,11 +66,11 @@
     opacity: 40%;
 }
 
-.nextArrow {
+.nextArrow:before {
     transform: rotate(135deg);
 }
 
-.prevArrow {
+.prevArrow:before {
     transform: rotate(-45deg);
 }
 
