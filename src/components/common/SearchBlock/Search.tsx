@@ -6,15 +6,20 @@ type SearchPropsType = {
     onChange: (value: string) => void
 }
 
-export const Search = ({...props}: SearchPropsType) => {
-    const [value, onSetValue] = useState('')
+export const Search = (props: SearchPropsType) => {
+    const [value, setValue] = useState('')
+    const debouncedSearchTerm = useDebounce(value, 500)
 
     useEffect(()=>{
-        props.onChange(value)
-    },[value])
+        if(debouncedSearchTerm) {
+            props.onChange(debouncedSearchTerm)
+        }
+    },[debouncedSearchTerm])
+
+
 
     const onChangeSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
-        onSetValue(e.currentTarget.value)
+        setValue(e.currentTarget.value)
     }
 
     return <div className={s.search}>
@@ -30,4 +35,23 @@ export const Search = ({...props}: SearchPropsType) => {
 
         </div>
     </div>
+}
+
+export default function useDebounce(value: string, delay: number) {
+    // Состояние и сеттер для отложенного значения
+    const [debouncedValue, setDebouncedValue] = useState(value);
+
+    useEffect(
+        () => {
+            const handler = setTimeout(() => {
+                setDebouncedValue(value);
+            }, delay);
+
+            return () => {
+                clearTimeout(handler);
+            };
+        },[value]
+    );
+
+    return debouncedValue;
 }
