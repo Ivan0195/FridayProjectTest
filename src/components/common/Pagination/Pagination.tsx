@@ -1,5 +1,4 @@
 import s from './Pagination.module.css'
-import {useState} from "react";
 import SuperSelect from "../../../SuperComponents/SuperSelect/SuperSelect";
 import cn from "classnames";
 
@@ -23,13 +22,9 @@ export const Pagination = ({
 
     //всего страниц
     let pagesCount = Math.ceil(totalItemsCount / itemsOnPageCount)
-    //количество таких порций (для стрелок)
-    let portionCount = Math.ceil(pagesCount / portionSize)
-    //порядковый номер каждой порции
-    const [portionNumber, setPortionNumber] = useState<number>(1)
-    //номера страницы в порции для фильтрации массива
-    const leftBorderPortionNumber = (portionNumber - 1) * portionSize + 1
-    const rightBorderPortionNumber = portionNumber * portionSize
+
+    const leftBorderPortionNumber = Math.min(currentPage - 2, pagesCount - 4)
+    const rightBorderPortionNumber = Math.max(currentPage + 2, 5)
 
 
     let pages = []
@@ -39,29 +34,28 @@ export const Pagination = ({
 
     const onPageChanged = (pageNumber: number) => {
         props.onPageChanged(pageNumber)
-        setPortionNumber(Math.ceil(pageNumber / portionSize))
     }
 
     //для выбора количества отображаемых элементов на странице
     let itemsOnPageCountArray: Number[] = [4, 5, 10, 15, 20]
 
 
-    if (totalItemsCount === 0) return null
+    if (totalItemsCount <= itemsOnPageCount) return null
     return <div className={s.pagination}>
 
         <button
-            disabled={portionNumber <= 1}
+            disabled={currentPage <= 1}
             className={cn(s.buttonElement, s.arrow, s.prevArrow)}
-            onClick={() => setPortionNumber(portionNumber - 1)}/>
+            onClick={() => onPageChanged(currentPage - 1)}/>
 
         <div className={s.pageNumbers}>
-            {portionCount === portionNumber &&
+            {currentPage >= 4 && pagesCount > 5 &&
                 <>
                     <button onClick={() => onPageChanged(1)}
                             className={s.buttonElement}>
                         {1}
                     </button>
-                    <span className={s.spanElement}>...</span>
+                    {currentPage >= 5 && <span className={s.spanElement}>...</span>}
                 </>}
 
             {pages
@@ -74,9 +68,10 @@ export const Pagination = ({
                     </button>
                 )}
 
-            {portionCount > portionNumber &&
+            {pagesCount - 3 >= currentPage && pagesCount > 5 &&
                 <>
-                    <span className={s.spanElement}>...</span>
+                    {pagesCount - 4 >= currentPage &&
+                        <span className={s.spanElement}>...</span>}
                     <button onClick={() => onPageChanged(pagesCount)}
                             className={s.buttonElement}>
                         {pagesCount}
@@ -84,9 +79,9 @@ export const Pagination = ({
                 </>}
         </div>
 
-        <button disabled={portionCount <= portionNumber}
+        <button disabled={pagesCount <= currentPage}
                 className={cn(s.buttonElement, s.arrow, s.nextArrow)}
-                onClick={() => setPortionNumber(portionNumber + 1)}/>
+                onClick={() => onPageChanged(currentPage + 1)}/>
 
         <div className={s.showCards}>
             <span>Show </span>
