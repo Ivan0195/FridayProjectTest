@@ -10,6 +10,7 @@ import {Pagination} from '../../components/common/Pagination/Pagination';
 import {setPackNameAC, setPacksPageAC, setPacksPageCountAC,} from '../../bll/packs-filter-settings-reducer';
 import {Search} from '../../components/common/SearchBlock/Search';
 import {fetchCardsPack} from '../../bll/packs-reducer';
+import SuperButton from "../ProfilePage/common/Button/SuperButton";
 
 export const PacksList = () => {
     const loadingStatus = useAppSelector<boolean>(state => state.cardsPack.isLoading)
@@ -61,6 +62,7 @@ export const PacksList = () => {
                     <h1 className={s.packsBarTitle}>Packs List</h1>
                     <div className={s.packsBarActions}>
                         <Search onChange={onChangeSearchHandler}/>
+                        <SuperButton>Add new pack</SuperButton>
                     </div>
                     <div className={s.packsBarContent}>
                         <Packs/>
