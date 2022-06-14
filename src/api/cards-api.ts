@@ -1,5 +1,10 @@
 import { api } from './axios';
-import { CardsPackPayloadType, CardsPayloadType } from '../types/requestTypes';
+import {
+  CardsPackAddPayloadType,
+  CardsPackDeletePayloadType, CardsPackEditPayloadType,
+  CardsPackPayloadType,
+  CardsPayloadType
+} from '../types/requestTypes';
 import { CardsPackResponseType, CardsResponseType } from '../types/responseTypes';
 
 export const cardsApi = {
@@ -12,5 +17,14 @@ export const cardsApi = {
   },
   getCards(params: CardsPayloadType) {
     return api.get<CardsResponseType>(this.endpoints.card, { params });
+  },
+  addCardsPack(payload: CardsPackAddPayloadType) {
+    return api.post<CardsPackAddPayloadType>(this.endpoints.pack, payload);
+  },
+  editCardsPack(payload: CardsPackEditPayloadType) {
+    return api.put<CardsPackEditPayloadType>(this.endpoints.pack, payload);
+  },
+  removeCardsPack(params: CardsPackDeletePayloadType) {
+    return api.delete(this.endpoints.pack, { params });
   },
 };

@@ -2,7 +2,7 @@ import { Search } from '../../components/common/SearchBlock/Search';
 import { Pagination } from '../../components/common/Pagination/Pagination';
 import React, { useEffect } from 'react';
 import s from './CardsPage.module.css';
-import { Cards } from '../Cards';
+import { Cards } from '../../components/Cards';
 import { useAppSelector, useTypedDispatch } from '../../bll/store';
 import { fetchCard, setCards } from '../../bll/packs-reducer';
 import { Link, useParams } from 'react-router-dom';

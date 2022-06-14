@@ -1,10 +1,10 @@
-import {Table} from '../../components/Table';
-import {SortableTableHeader} from '../../components/Table/elements/SortableTableHeader';
-import { CardType} from '../../types/responseTypes';
-import {Rate} from '../../components/common/Rate';
+import { Table } from '../Table';
+import { SortableTableHeader } from '../Table/elements/SortableTableHeader';
+import { CardType } from '../../types/responseTypes';
+import { Rate } from '../common/Rate';
 import React from 'react';
-import {useAppSelector} from '../../bll/store';
-import {getCards} from '../../bll/packs-reducer';
+import { useAppSelector } from '../../bll/store';
+import { getCards } from '../../bll/packs-reducer';
 
 const columns = [
     {

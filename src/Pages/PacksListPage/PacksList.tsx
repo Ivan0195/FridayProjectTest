@@ -1,16 +1,26 @@
-import React, {useEffect} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import s from './PacksListPage.module.css'
-import {AllMySelector} from "../../components/common/AllMySelector/AllMySelector";
-import {DoubleRange} from "../../components/common/DoubleRange/DoubleRange";
-import {useSelector} from "react-redux";
-import {AppRootStateType, useAppSelector, useTypedDispatch} from "../../bll/store";
-import {Navigate} from "react-router-dom";
-import {Packs} from '../Packs';
-import {Pagination} from '../../components/common/Pagination/Pagination';
-import {setPackNameAC, setPacksPageAC, setPacksPageCountAC,} from '../../bll/packs-filter-settings-reducer';
-import {Search} from '../../components/common/SearchBlock/Search';
-import {fetchCardsPack} from '../../bll/packs-reducer';
+import { AllMySelector } from "../../components/common/AllMySelector/AllMySelector";
+import { DoubleRange } from "../../components/common/DoubleRange/DoubleRange";
+import { useSelector } from "react-redux";
+import { AppRootStateType, useAppSelector, useTypedDispatch } from "../../bll/store";
+import { Navigate } from "react-router-dom";
+import { Packs } from '../../components/Packs';
+import { Pagination } from '../../components/common/Pagination/Pagination';
+import { setPackNameAC, setPacksPageAC, setPacksPageCountAC, } from '../../bll/packs-filter-settings-reducer';
+import { Search } from '../../components/common/SearchBlock/Search';
+import { addCardPack, fetchCardsPack } from '../../bll/packs-reducer';
 import SuperButton from "../ProfilePage/common/Button/SuperButton";
+import { Dialog } from '../../components/common/Dialog';
+import cn from 'classnames';
+import styles from '../../components/forms/SignUp/SignUp.module.css';
+import AppInput from '../../components/common/AppInput/AppInput';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+
+const schema = Yup.object<Record<'namePack', Yup.AnySchema>>({
+    namePack: Yup.string().required(),
+});
 
 export const PacksList = () => {
     const loadingStatus = useAppSelector<boolean>(state => state.cardsPack.isLoading)
@@ -23,6 +33,8 @@ export const PacksList = () => {
     const currentPage = useAppSelector<number>(state => state.packsFilterSettings.page)
     const user_id = useAppSelector(state => state.packsFilterSettings.user_id)
     const dispatch = useTypedDispatch()
+
+    const [modalStatus, setModalStatus] = useState<boolean>(false);
 
     console.log(packName)
     useEffect(() => {
@@ -40,6 +52,14 @@ export const PacksList = () => {
     const onChangeItemsCountHandler = (value: number) => {
         dispatch(setPacksPageCountAC(value))
     }
+
+    const handleModalOpen = useCallback(() => {
+        setModalStatus(true);
+    }, [setModalStatus]);
+
+    const handleModalClose = useCallback(() => {
+        setModalStatus(false);
+    }, [setModalStatus]);
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
 
@@ -63,7 +83,7 @@ export const PacksList = () => {
                     <h1 className={s.packsBarTitle}>Packs List</h1>
                     <div className={s.packsBarActions}>
                         <Search onChange={onChangeSearchHandler}/>
-                        <SuperButton style={{width:'184px'}}>Add new pack</SuperButton>
+                        <SuperButton style={{width:'184px'}} onClick={handleModalOpen}>Add new pack</SuperButton>
                     </div>
                     <div className={s.packsBarContent}>
                         <Packs/>
@@ -74,6 +94,49 @@ export const PacksList = () => {
                                 onPageChanged={onPageChangedHandler}
                                 onChangeItemsOnPageCount={onChangeItemsCountHandler}
                     />
+                    <Dialog
+                      isActive={modalStatus}
+                      headerText="Add New Pack"
+                      onClose={handleModalClose}
+                    >
+                        <Formik
+                          initialValues={{ namePack: '' }}
+                          validationSchema={schema}
+                          onSubmit={async (values, { setSubmitting }) => {
+                              handleModalClose();
+                              await dispatch(addCardPack(values.namePack));
+                              setSubmitting(false);
+                          }}
+                        >
+                            {({
+                                  values,
+                                  errors,
+                                  touched,
+                                  handleChange,
+                                  handleBlur,
+                                  handleSubmit,
+                                  isSubmitting,
+                              }) => (
+                              <form onSubmit={handleSubmit}>
+                                  <div className={cn(styles.fieldsWrapper)}>
+                                      <AppInput
+                                        label="Name Pack"
+                                        name="namePack"
+                                        className={cn(styles.field)}
+                                        error={errors.namePack && touched.namePack && errors.namePack ? errors.namePack : ''}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.namePack}
+                                      />
+                                  </div>
+                                  <div className={cn(styles.buttonWrapper)}>
+                                      <SuperButton type="button" disabled={isSubmitting} onClick={handleModalClose}>Cancel</SuperButton>
+                                      <SuperButton type="submit" disabled={isSubmitting} >Save</SuperButton>
+                                  </div>
+                              </form>
+                            )}
+                        </Formik>
+                    </Dialog>
                 </div>
             </div>
         </div>

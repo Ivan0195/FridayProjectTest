@@ -35,10 +35,3 @@
 .closeButton::after {
   transform: rotate(-45deg);
 }
-
-.buttonsWrapper {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  justify-content: space-between;
-}

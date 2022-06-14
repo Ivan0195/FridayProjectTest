@@ -2,7 +2,7 @@ import {CardsPackResponseType, CardsResponseType, ErrorResponseType} from '../ty
 import {cardsApi} from '../api/cards-api';
 import {handleNetworkError} from '../utils/errorUtils';
 import {AxiosError} from 'axios';
-import {AppDispatch, AppRootStateType} from './store';
+import { AppDispatch, AppRootStateType, TypedDispatch } from './store';
 import {CardsPackPayloadType, CardsPayloadType} from '../types/requestTypes';
 import {setCardsCountAC} from './packs-filter-settings-reducer';
 import {setCardsCountOnPackAC} from "./cards-reducer";
@@ -35,7 +35,7 @@ export const setCards = (cards: CardsResponseType | null) => ({
 } as const);
 
 export const fetchCardsPack = () =>
-    async (dispatch: AppDispatch, getState: () => AppRootStateType) => {
+    async (dispatch: TypedDispatch, getState: () => AppRootStateType) => {
         try {
             dispatch(setLoadingStatus(true));
             const payload: CardsPackPayloadType = {
@@ -59,7 +59,7 @@ export const fetchCardsPack = () =>
     };
 
 export const fetchCard = (id: string) =>
-    async (dispatch: AppDispatch, getState: () => AppRootStateType) => {
+    async (dispatch: TypedDispatch, getState: () => AppRootStateType) => {
         try {
             const payload: CardsPayloadType = {
                 cardsPack_id: id,
@@ -75,6 +75,42 @@ export const fetchCard = (id: string) =>
             handleNetworkError(err);
         }
     };
+
+export const addCardPack = (name: string) => async (dispatch: TypedDispatch) => {
+    dispatch(setLoadingStatus(true));
+    try {
+        await cardsApi.addCardsPack({ cardsPack: { name } });
+        dispatch(fetchCardsPack());
+    } catch (e) {
+        const err = e as AxiosError<ErrorResponseType>;
+        handleNetworkError(err);
+        dispatch(setLoadingStatus(false));
+    }
+};
+
+export const editCardPack = (id: string, name: string) => async (dispatch: TypedDispatch) => {
+    dispatch(setLoadingStatus(true));
+    try {
+        await cardsApi.editCardsPack({ cardsPack: { _id: id, name } });
+        dispatch(fetchCardsPack());
+    } catch (e) {
+        const err = e as AxiosError<ErrorResponseType>;
+        handleNetworkError(err);
+        dispatch(setLoadingStatus(false));
+    }
+};
+
+export const removeCardPack = (id: string) => async (dispatch: TypedDispatch) => {
+    dispatch(setLoadingStatus(true));
+    try {
+        await cardsApi.removeCardsPack({ id });
+        dispatch(fetchCardsPack());
+    } catch (e) {
+        const err = e as AxiosError<ErrorResponseType>;
+        handleNetworkError(err);
+        dispatch(setLoadingStatus(false));
+    }
+};
 
 export type ActionsType =
     ReturnType<typeof setCardsPack>

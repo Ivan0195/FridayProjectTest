@@ -33,6 +33,25 @@ export type CardsPackPayloadType = {
   user_id?: string;
 };
 
+export type CardsPackAddPayloadType = {
+  cardsPack: {
+    name: string;
+    deckCover?: string;
+    private?: boolean;
+  };
+};
+
+export type CardsPackEditPayloadType = {
+  cardsPack: {
+    name: string;
+    _id: string;
+  };
+};
+
+export type CardsPackDeletePayloadType = {
+  id: string;
+};
+
 export type CardsPayloadType = {
   cardAnswer?: string
   cardQuestion?: string
