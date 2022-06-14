@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 import s from "./Profile.module.css"
 import {useSelector} from "react-redux";
 import {AppRootStateType, useTypedDispatch} from "../../bll/store";
-import {Navigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import SuperButton from "./common/Button/SuperButton";
 import {Input} from "./common/Input/Input";
 import {getUserData, updateInitializingDataTC} from '../../bll/login-reducer';
 import {UserResponseType} from "../../types/responseTypes";
 
 const Profile = () => {
+    const navigate = useNavigate()
     const user = useSelector<AppRootStateType, UserResponseType>(getUserData);
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
 
@@ -20,7 +21,7 @@ const Profile = () => {
         dispatch(updateInitializingDataTC({name}))
     }
     const onCancelHandler = () => {
-        setName(user.name)
+        navigate('/profile')
     }
 
     const onChangeHandler = (name: string) => {
@@ -44,7 +45,7 @@ const Profile = () => {
                     <Input placeholder={'Email'} disabled value={user.email}/>
                 </div>
                 <div className={s.buttons}>
-                    <SuperButton onClick={onCancelHandler} disabled={user.name === name}>Cancel</SuperButton>
+                    <SuperButton onClick={onCancelHandler}>Cancel</SuperButton>
                     <SuperButton onClick={onSaveHandler} disabled={user.name === name}>Save</SuperButton>
                 </div>
             </div>
