@@ -104,7 +104,7 @@ export const PacksList = () => {
                             validationSchema={schema}
                             onSubmit={async (values, {setSubmitting}) => {
                                 handleModalClose();
-                                await dispatch(addCardPack(values.namePack));
+                                await dispatch(addCardPack(values.namePack, values.private));
                                 setSubmitting(false);
                             }}
                         >
