@@ -1,12 +1,12 @@
 import React from 'react';
-import {PacksList} from "../PacksListPage/PacksList";
+import {ProfilePage} from "../ProfilePage/ProfilePage";
 
 
 const Test = () => {
 
     return (
         <div>
-            <PacksList/>
+            <ProfilePage/>
         </div>
     );
 };

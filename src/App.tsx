@@ -18,7 +18,7 @@ import {Header} from "./Pages/Header/Header";
 import {NewPassword} from "./Pages/NewPasswordPage/NewPassword";
 import {PacksList} from "./Pages/PacksListPage/PacksList";
 import {CardsPage} from './Pages/CardsPage';
-import {CardsLearningContainer} from "./Pages/CardsLearning/CardsLearningContainer";
+import {ProfilePage} from "./Pages/ProfilePage/ProfilePage";
 
 function App() {
     useEffect(() => {
@@ -37,7 +37,11 @@ function App() {
                 {isLoggedIn && <Header/>}
                 <Routes>
                     <Route path="/" element={<Navigate to={'/profile'}/>}/>
-                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/profile">
+                        <Route path="" element={<ProfilePage/>}/>
+                        <Route path="edit" element={<Profile/>}/>
+                        <Route path=":id" element={<CardsPage/>}/>
+                    </Route>
                     <Route path="/login" element={<LoginContainer/>}/>
                     <Route path="/registration" element={<RegistrationPage/>}/>
                     <Route path="/password_reset" element={<PasswordReset/>}/>
@@ -46,7 +50,6 @@ function App() {
                         <Route path="" element={<PacksList/>}/>
                         <Route path=":id" element={<CardsPage/>}/>
                     </Route>
-                    <Route path="/pack_learn/:id" element={<CardsLearningContainer/>}/>
                     <Route path="/test" element={<Test/>}/>
                     <Route path="/404" element={<Page404/>}/>
                     <Route path="*" element={<Navigate to={'/404'}/>}/>
