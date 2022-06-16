@@ -32,7 +32,7 @@ export const cardsApi = {
   },
   updateCardGrade(payload:CardGradePayloadType) {
     return api.put<CardUpdatedGradeResponseType>(this.endpoints.cardGrade, payload)
-  }
+  },
   addCards(payload: CardsAddPayloadType) {
     return api.post<CardsAddPayloadType>(this.endpoints.card, payload);
   },

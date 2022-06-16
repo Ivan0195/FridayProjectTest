@@ -36,7 +36,6 @@ export const PacksList = () => {
 
     const [modalStatus, setModalStatus] = useState<boolean>(false);
 
-    console.log(packName)
     useEffect(() => {
         dispatch(fetchCardsPack());
     }, [dispatch, itemsOnPageCount, packName, min, max, currentPage, sortPacks, user_id]);

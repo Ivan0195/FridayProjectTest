@@ -19,6 +19,7 @@ import {NewPassword} from "./Pages/NewPasswordPage/NewPassword";
 import {PacksList} from "./Pages/PacksListPage/PacksList";
 import {CardsPage} from './Pages/CardsPage';
 import {ProfilePage} from "./Pages/ProfilePage/ProfilePage";
+import { CardsLearningContainer } from './Pages/CardsLearning/CardsLearningContainer';
 
 function App() {
     useEffect(() => {
@@ -50,6 +51,7 @@ function App() {
                         <Route path="" element={<PacksList/>}/>
                         <Route path=":id" element={<CardsPage/>}/>
                     </Route>
+                    <Route path="/pack_learn/:id" element={<CardsLearningContainer/>}/>
                     <Route path="/test" element={<Test/>}/>
                     <Route path="/404" element={<Page404/>}/>
                     <Route path="*" element={<Navigate to={'/404'}/>}/>

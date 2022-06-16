@@ -3,7 +3,7 @@ import {cardsApi} from '../api/cards-api';
 import {handleNetworkError} from '../utils/errorUtils';
 import {AxiosError} from 'axios';
 import {AppRootStateType, TypedDispatch} from './store';
-import {CardsPackPayloadType, CardsPayloadType} from '../types/requestTypes';
+import { CardsAddPayloadType, CardsPackPayloadType, CardsPayloadType } from '../types/requestTypes';
 import {setCardsCountAC} from './packs-filter-settings-reducer';
 import {setCardsCountOnPackAC} from "./cards-reducer";
 
@@ -154,13 +154,18 @@ export const PacksReducer = (state: InitialStateType = initialState, action: Act
         case 'packs/setCards':
             return {...state, cards: action.payload};
         case 'packs/setCardGrade':
-            return {
-                ...state, cards: {
-                    ...state.cards,
-                    //@ts-ignore
-                    cards: state.cards?.cards.map(c => c._id === action.id ? {...c, grade: action.grade} : c)
+            if (state.cards && state.cards.cards) {
+                return {
+                    ...state,
+                    cards: {
+                        ...state.cards,
+                        cards: state.cards.cards.map(c => c._id === action.id ? {...c, grade: action.grade} : c)
+                    }
                 }
             }
+
+            return state;
+
         default:
             return state;
     }
