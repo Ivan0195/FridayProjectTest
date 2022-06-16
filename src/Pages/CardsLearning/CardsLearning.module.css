@@ -1,0 +1,56 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.card {
+    padding: 25px 35px;
+    width: 420px;
+    border-radius: 8px;
+    background-color: #F9F9FE;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'SF UI Display', serif;
+    font-weight: 300;
+    font-size: 16px;
+}
+
+.title {
+    padding-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    font-family: 'Poppins', serif;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+.span {
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+
+.answerBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.rate {
+    padding-top: 36px;
+    padding-bottom: 10px;
+}
+
+.radio {
+    padding-bottom: 12px;
+    cursor: pointer;
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+}

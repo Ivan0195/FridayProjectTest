@@ -39,7 +39,7 @@ export const PacksList = () => {
     console.log(packName)
     useEffect(() => {
         dispatch(fetchCardsPack());
-    }, [dispatch, itemsOnPageCount, totalItemsCount, packName, min, max, currentPage, sortPacks, user_id]);
+    }, [dispatch, itemsOnPageCount, packName, min, max, currentPage, sortPacks, user_id]);
 
     const onChangeSearchHandler = (value: string) => {
         dispatch(setPackNameAC(value))
