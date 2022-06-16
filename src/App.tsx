@@ -17,7 +17,8 @@ import {LoginContainer} from "./Pages/LoginPage/LoginContainer";
 import {Header} from "./Pages/Header/Header";
 import {NewPassword} from "./Pages/NewPasswordPage/NewPassword";
 import {PacksList} from "./Pages/PacksListPage/PacksList";
-import { CardsPage } from './Pages/CardsPage';
+import {CardsPage} from './Pages/CardsPage';
+import {CardsLearningContainer} from "./Pages/CardsLearning/CardsLearningContainer";
 
 function App() {
     useEffect(() => {
@@ -35,21 +36,22 @@ function App() {
             <div className={'App'}>
                 {isLoggedIn && <Header/>}
                 <Routes>
-                        <Route path="/" element={<Navigate to={'/profile'}/>}/>
-                        <Route path="/profile" element={<Profile/>}/>
-                        <Route path="/login" element={<LoginContainer/>}/>
-                        <Route path="/registration" element={<RegistrationPage/>}/>
-                        <Route path="/password_reset" element={<PasswordReset/>}/>
-                        <Route path="/new_password/:token" element={<NewPassword/>}/>
-                        <Route path="/packs_list">
-                          <Route path="" element={<PacksList/>} />
-                          <Route path=":id" element={<CardsPage/>} />
-                        </Route>
-                        <Route path="/test" element={<Test/>}/>
-                        <Route path="/404" element={<Page404/>}/>
-                        <Route path="*" element={<Navigate to={'/404'}/>}/>
-                    </Routes>
-              <ToastContainer position="bottom-left" hideProgressBar />
+                    <Route path="/" element={<Navigate to={'/profile'}/>}/>
+                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/login" element={<LoginContainer/>}/>
+                    <Route path="/registration" element={<RegistrationPage/>}/>
+                    <Route path="/password_reset" element={<PasswordReset/>}/>
+                    <Route path="/new_password/:token" element={<NewPassword/>}/>
+                    <Route path="/packs_list">
+                        <Route path="" element={<PacksList/>}/>
+                        <Route path=":id" element={<CardsPage/>}/>
+                    </Route>
+                    <Route path="/pack_learn/:id" element={<CardsLearningContainer/>}/>
+                    <Route path="/test" element={<Test/>}/>
+                    <Route path="/404" element={<Page404/>}/>
+                    <Route path="*" element={<Navigate to={'/404'}/>}/>
+                </Routes>
+                <ToastContainer position="bottom-left" hideProgressBar/>
             </div>
         );
     }

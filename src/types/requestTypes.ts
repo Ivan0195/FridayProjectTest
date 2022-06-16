@@ -62,3 +62,8 @@ export type CardsPayloadType = {
   page?: number
   pageCount?: number
 };
+
+export type CardGradePayloadType = {
+  card_id: string
+  grade: number
+}

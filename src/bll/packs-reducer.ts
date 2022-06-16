@@ -2,7 +2,7 @@ import {CardsPackResponseType, CardsResponseType, ErrorResponseType} from '../ty
 import {cardsApi} from '../api/cards-api';
 import {handleNetworkError} from '../utils/errorUtils';
 import {AxiosError} from 'axios';
-import { AppDispatch, AppRootStateType, TypedDispatch } from './store';
+import {AppRootStateType, TypedDispatch} from './store';
 import {CardsPackPayloadType, CardsPayloadType} from '../types/requestTypes';
 import {setCardsCountAC} from './packs-filter-settings-reducer';
 import {setCardsCountOnPackAC} from "./cards-reducer";
@@ -32,6 +32,12 @@ export const setCardsPack = (cardsPack: CardsPackResponseType | null) => ({
 export const setCards = (cards: CardsResponseType | null) => ({
     type: 'packs/setCards',
     payload: cards,
+} as const);
+
+export const setCardGrade = (id: string, grade: number) => ({
+    type: 'packs/setCardGrade',
+    grade,
+    id
 } as const);
 
 export const fetchCardsPack = () =>
@@ -79,7 +85,7 @@ export const fetchCard = (id: string) =>
 export const addCardPack = (name: string) => async (dispatch: TypedDispatch) => {
     dispatch(setLoadingStatus(true));
     try {
-        await cardsApi.addCardsPack({ cardsPack: { name } });
+        await cardsApi.addCardsPack({cardsPack: {name}});
         dispatch(fetchCardsPack());
     } catch (e) {
         const err = e as AxiosError<ErrorResponseType>;
@@ -91,7 +97,7 @@ export const addCardPack = (name: string) => async (dispatch: TypedDispatch) => 
 export const editCardPack = (id: string, name: string) => async (dispatch: TypedDispatch) => {
     dispatch(setLoadingStatus(true));
     try {
-        await cardsApi.editCardsPack({ cardsPack: { _id: id, name } });
+        await cardsApi.editCardsPack({cardsPack: {_id: id, name}});
         dispatch(fetchCardsPack());
     } catch (e) {
         const err = e as AxiosError<ErrorResponseType>;
@@ -103,7 +109,7 @@ export const editCardPack = (id: string, name: string) => async (dispatch: Typed
 export const removeCardPack = (id: string) => async (dispatch: TypedDispatch) => {
     dispatch(setLoadingStatus(true));
     try {
-        await cardsApi.removeCardsPack({ id });
+        await cardsApi.removeCardsPack({id});
         dispatch(fetchCardsPack());
     } catch (e) {
         const err = e as AxiosError<ErrorResponseType>;
@@ -112,10 +118,21 @@ export const removeCardPack = (id: string) => async (dispatch: TypedDispatch) =>
     }
 };
 
+export const updateCardGrade = (card_id: string, grade: number) => async (dispatch: TypedDispatch) => {
+    try {
+        const response = await cardsApi.updateCardGrade({card_id, grade});
+        dispatch(setCardGrade(response.data.updatedGrade.card_id, response.data.updatedGrade.grade));
+    } catch (e) {
+        const err = e as AxiosError<ErrorResponseType>;
+        handleNetworkError(err);
+    }
+};
+
 export type ActionsType =
     ReturnType<typeof setCardsPack>
     | ReturnType<typeof setCards>
-    | ReturnType<typeof setLoadingStatus>;
+    | ReturnType<typeof setLoadingStatus>
+    | ReturnType<typeof setCardGrade>;
 
 export const PacksReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
@@ -125,6 +142,14 @@ export const PacksReducer = (state: InitialStateType = initialState, action: Act
             return {...state, cardsPack: action.payload};
         case 'packs/setCards':
             return {...state, cards: action.payload};
+        case 'packs/setCardGrade':
+            return {
+                ...state, cards: {
+                    ...state.cards,
+                    //@ts-ignore
+                    cards: state.cards?.cards.map(c => c._id === action.id ? {...c, grade: action.grade} : c)
+                }
+            }
         default:
             return state;
     }
@@ -133,3 +158,4 @@ export const PacksReducer = (state: InitialStateType = initialState, action: Act
 export const getCardsPack = (state: AppRootStateType) => state.cardsPack.cardsPack;
 export const getCards = (state: AppRootStateType) => state.cardsPack.cards;
 export const getCardsPackLoadingStatus = (state: AppRootStateType) => state.cardsPack.isLoading;
+export const getCardsForLearning = (state: AppRootStateType) => getCards(state)?.cards || [];

@@ -73,3 +73,14 @@ export type CardsResponseType = {
   pageCount: number;
   packUserId: string;
 };
+
+export type CardUpdatedGradeResponseType = {
+  updatedGrade: {
+    _id: string
+    cardsPack_id: string
+    card_id: string
+    user_id: string
+    grade: number
+    shots: number
+  }
+}

@@ -1,16 +1,18 @@
 import { api } from './axios';
 import {
+  CardGradePayloadType,
   CardsPackAddPayloadType,
   CardsPackDeletePayloadType, CardsPackEditPayloadType,
   CardsPackPayloadType,
   CardsPayloadType
 } from '../types/requestTypes';
-import { CardsPackResponseType, CardsResponseType } from '../types/responseTypes';
+import {CardsPackResponseType, CardsResponseType, CardUpdatedGradeResponseType} from '../types/responseTypes';
 
 export const cardsApi = {
   endpoints: {
     pack: '/cards/pack',
     card: '/cards/card',
+    cardGrade: '/cards/grade'
   },
   getCardsPack(params: CardsPackPayloadType = {}) {
     return api.get<CardsPackResponseType>(this.endpoints.pack, { params });
@@ -27,4 +29,7 @@ export const cardsApi = {
   removeCardsPack(params: CardsPackDeletePayloadType) {
     return api.delete(this.endpoints.pack, { params });
   },
+  updateCardGrade(payload:CardGradePayloadType) {
+    return api.put<CardUpdatedGradeResponseType>(this.endpoints.cardGrade, payload)
+  }
 };
