@@ -1,0 +1,50 @@
+.label {
+  font-size: 13px;
+  font-weight: 400;
+  color: #21268F;
+  cursor: pointer;
+}
+
+.input {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+.file {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.closeButton {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.closeButton::before, .closeButton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: calc(50% - 1px);
+  width: 1px;
+  height: 100%;
+  background-color: #2D2E46;
+  cursor: pointer;
+  transform-origin: center;
+}
+
+.closeButton::before {
+  transform: rotate(45deg);
+}
+
+.closeButton::after {
+  transform: rotate(-45deg);
+}

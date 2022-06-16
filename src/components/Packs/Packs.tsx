@@ -21,6 +21,8 @@ import cn from 'classnames';
 import AppInput from '../common/AppInput/AppInput';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { RoutesEnum } from '../../types/enums/routes';
+import { useNavigate } from 'react-router-dom';
 
 export type ModalsType = 'edit' | 'delete';
 type ModalsStateTypes = {
@@ -40,6 +42,7 @@ const schema = Yup.object<Record<'namePack', Yup.AnySchema>>({
 
 export const Packs = () => {
   const dispatch = useTypedDispatch();
+  const navigate = useNavigate();
 
   const [currentPack, setCurrentPack] = useState<CardPackType | null>(null);
   const [modalStatus, setModalStatus] = useState<boolean>(false);
@@ -78,6 +81,10 @@ export const Packs = () => {
     if (currentPack) {
       dispatch(editCardPack(currentPack._id, name));
     }
+  };
+
+  const handleLearnClick = () => {
+    navigate(RoutesEnum.Profile);
   };
 
   const modalsMap: Record<ModalsType, ModalsStateTypes> = {
@@ -169,7 +176,7 @@ export const Packs = () => {
         };
 
         if (cardPack.user_id !== userID) {
-          return <SuperButton small type="button" data-id="learn" onClick={handleButtonClick}>Learn</SuperButton>;
+          return <SuperButton small type="button" data-id="learn" onClick={handleLearnClick}>Learn</SuperButton>;
         }
 
         return (
@@ -181,7 +188,7 @@ export const Packs = () => {
               <SuperButton small type="button" data-id="edit" onClick={handleButtonClick}>Edit</SuperButton>
             </div>
             <div className={styles.buttonWrapper}>
-              <SuperButton small type="button" data-id="learn" onClick={handleButtonClick}>Learn</SuperButton>
+              <SuperButton small type="button" data-id="learn" onClick={handleLearnClick}>Learn</SuperButton>
             </div>
           </div>
         );

@@ -3,7 +3,7 @@ import {cardsApi} from '../api/cards-api';
 import {handleNetworkError} from '../utils/errorUtils';
 import {AxiosError} from 'axios';
 import { AppDispatch, AppRootStateType, TypedDispatch } from './store';
-import {CardsPackPayloadType, CardsPayloadType} from '../types/requestTypes';
+import { CardsAddPayloadType, CardsPackPayloadType, CardsPayloadType } from '../types/requestTypes';
 import {setCardsCountAC} from './packs-filter-settings-reducer';
 import {setCardsCountOnPackAC} from "./cards-reducer";
 
@@ -105,6 +105,17 @@ export const removeCardPack = (id: string) => async (dispatch: TypedDispatch) =>
     try {
         await cardsApi.removeCardsPack({ id });
         dispatch(fetchCardsPack());
+    } catch (e) {
+        const err = e as AxiosError<ErrorResponseType>;
+        handleNetworkError(err);
+        dispatch(setLoadingStatus(false));
+    }
+};
+
+export const addCard = (payload: CardsAddPayloadType['card']) => async (dispatch: TypedDispatch) => {
+    dispatch(setLoadingStatus(true));
+    try {
+        await cardsApi.addCards({ card: payload });
     } catch (e) {
         const err = e as AxiosError<ErrorResponseType>;
         handleNetworkError(err);

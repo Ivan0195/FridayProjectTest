@@ -1,5 +1,6 @@
 import { api } from './axios';
 import {
+  CardsAddPayloadType,
   CardsPackAddPayloadType,
   CardsPackDeletePayloadType, CardsPackEditPayloadType,
   CardsPackPayloadType,
@@ -26,5 +27,8 @@ export const cardsApi = {
   },
   removeCardsPack(params: CardsPackDeletePayloadType) {
     return api.delete(this.endpoints.pack, { params });
+  },
+  addCards(payload: CardsAddPayloadType) {
+    return api.post<CardsAddPayloadType>(this.endpoints.card, payload);
   },
 };

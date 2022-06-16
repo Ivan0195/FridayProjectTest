@@ -52,6 +52,18 @@ export type CardsPackDeletePayloadType = {
   id: string;
 };
 
+export type CardsAddPayloadType = {
+  card: {
+    cardsPack_id: string;
+    question: string;
+    answer: string;
+    grade?: number | null;
+    shots?: number | null;
+    answerImg?: string | null;
+    questionImg?: string | null;
+  }
+};
+
 export type CardsPayloadType = {
   cardAnswer?: string
   cardQuestion?: string
