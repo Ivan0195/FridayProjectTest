@@ -82,10 +82,10 @@ export const fetchCard = (id: string) =>
         }
     };
 
-export const addCardPack = (name: string) => async (dispatch: TypedDispatch) => {
+export const addCardPack = (name: string, privatePack?: boolean) => async (dispatch: TypedDispatch) => {
     dispatch(setLoadingStatus(true));
     try {
-        await cardsApi.addCardsPack({cardsPack: {name}});
+        await cardsApi.addCardsPack({cardsPack: {name, private: privatePack}});
         dispatch(fetchCardsPack());
     } catch (e) {
         const err = e as AxiosError<ErrorResponseType>;
