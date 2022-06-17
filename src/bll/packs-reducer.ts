@@ -71,7 +71,8 @@ export const fetchCard = (id: string) =>
                 cardsPack_id: id,
                 pageCount: getState().cardsSettings.pageCount,
                 page: getState().cardsSettings.page,
-                cardQuestion: getState().cardsSettings.cardQuestion
+                cardQuestion: getState().cardsSettings.cardQuestion,
+                sortCards:  getState().cardsSettings.sortCards
             }; // getState...
             const response = await cardsApi.getCards(payload);
             dispatch(setCards(response.data));

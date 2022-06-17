@@ -23,7 +23,7 @@ type ModalsStateTypes = {
     body: JSX.Element;
 };
 
-const sortNumMap: Record<OrdersType, string | null> = {
+export const sortNumMap: Record<OrdersType, string | null> = {
     default: null,
     asc: '1',
     desc: '0',

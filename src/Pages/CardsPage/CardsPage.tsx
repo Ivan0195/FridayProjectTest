@@ -31,6 +31,7 @@ export const CardsPage = () => {
   const totalItemsCount = useAppSelector(state => state.cardsSettings.totalCardsCount)
   const cardQuestion = useAppSelector(state => state.cardsSettings.cardQuestion)
   const cardAnswer = useAppSelector(state => state.cardsSettings.cardAnswer)
+  const sortCards = useAppSelector(state => state.cardsSettings.sortCards)
   const { _id: userID } = useAppSelector(getUserData);
   const packUserID = useAppSelector(state => state.cardsPack.cards?.packUserId)
   const dispatch = useTypedDispatch();
@@ -46,7 +47,7 @@ export const CardsPage = () => {
     return () => {
       dispatch(setCards(null));
     };
-  }, [dispatch, id, cardQuestion, currentPage, totalItemsCount, cardAnswer]);
+  }, [dispatch, id, cardQuestion, currentPage, totalItemsCount, cardAnswer, sortCards]);
 
   const onChangeSearchHandler = (value: string) => {
     dispatch(setCardAnswerAC(value))

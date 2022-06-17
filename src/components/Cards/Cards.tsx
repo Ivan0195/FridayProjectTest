@@ -17,7 +17,7 @@ import { getUserData } from '../../bll/login-reducer';
 import { Link } from 'react-router-dom';
 import SuperButton from '../../Pages/ProfilePage/common/Button/SuperButton';
 import styles from '../Packs/Packs.module.css';
-import { ModalsType } from '../Packs/Packs';
+import {ModalsType, sortNumMap} from '../Packs/Packs';
 import { Formik } from 'formik';
 import cn from 'classnames';
 import AppInput from '../common/AppInput/AppInput';
@@ -27,37 +27,16 @@ import { AppInputFile } from '../common/AppInputFile';
 import { toast } from 'react-toastify';
 import { Dialog } from '../common/Dialog';
 import { CardsAddPayloadType } from '../../types/requestTypes';
+import {OrdersType} from "../../types/common";
+import {setSortPacksAC} from "../../bll/packs-filter-settings-reducer";
+import {setSortCardsAC} from "../../bll/cards-reducer";
 
 type ModalsStateTypes = {
     header: string,
     body: JSX.Element;
 };
 
-const columns = [
-    {
-        id: 'question',
-        value: <SortableTableHeader id="question" onClick={console.log}>Question</SortableTableHeader>,
-    },
-    {
-        id: 'answer',
-        value: <SortableTableHeader id="answer" onClick={console.log}>Answer</SortableTableHeader>,
-    },
-    {
-        id: 'updated',
-        value: <SortableTableHeader id="updated" onClick={console.log}>Last Updated</SortableTableHeader>,
-    },
-    {
-        id: 'user_name',
-        value: <SortableTableHeader id="user_name" onClick={console.log}>Grade</SortableTableHeader>,
-        render: (card: CardType) => {
-            return (
-                <div style={{display: 'flex'}}>
-                    <Rate value={Math.floor(card.grade)}/>
-                </div>
-            );
-        },
-    },
-];
+
 
 const schema = Yup.object<Record<'question' | 'answer', Yup.AnySchema>>({
     question: Yup.string().required(),
@@ -73,6 +52,12 @@ export const Cards = () => {
     const [currentCard, setCurrentCard] = useState<CardType | null>(null);
     const [modalStatus, setModalStatus] = useState<boolean>(false);
     const [modalType, setModalType] = useState<ModalsType | null>(null);
+
+    const handleTableOrderChange = useCallback(({id, order}: { id: string | number, order: OrdersType }) => {
+        const sortValue = sortNumMap[order];
+        const sortType = !sortValue ? '' : `${sortValue}${id}`;
+        dispatch(setSortCardsAC(sortType));
+    }, [dispatch]);
 
     const handleModalOpen = useCallback((type: ModalsType, card: CardType) => {
         setCurrentCard(card);
@@ -101,6 +86,32 @@ export const Cards = () => {
             dispatch(fetchCard(currentCard.cardsPack_id));
         }
     };
+
+    const columns = [
+        {
+            id: 'question',
+            value: <SortableTableHeader id="question" onClick={handleTableOrderChange}>Question</SortableTableHeader>,
+        },
+        {
+            id: 'answer',
+            value: <SortableTableHeader id="answer" onClick={handleTableOrderChange}>Answer</SortableTableHeader>,
+        },
+        {
+            id: 'updated',
+            value: <SortableTableHeader id="updated" onClick={handleTableOrderChange}>Last Updated</SortableTableHeader>,
+        },
+        {
+            id: 'user_name',
+            value: <SortableTableHeader id="user_name" onClick={handleTableOrderChange}>Grade</SortableTableHeader>,
+            render: (card: CardType) => {
+                return (
+                    <div style={{display: 'flex'}}>
+                        <Rate value={Math.floor(card.grade)}/>
+                    </div>
+                );
+            },
+        },
+    ];
 
     const handleFileUpload = (
       field: string,
