@@ -3,17 +3,18 @@ import styles from './AppInputFile.module.css';
 import { Portal } from '../Portal';
 import { toast } from 'react-toastify';
 
-type DefaultInputPropsType = Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'type' | 'id' | 'name' | 'onChange'>;
+type DefaultInputPropsType = Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'type' | 'id' | 'name' | 'onChange' | 'value'>;
 
 type AppInputFilePropsType = {
   id: string;
   name: string;
   onChange?: (files: File[] | null) => void;
+  value?: string | null;
 } & DefaultInputPropsType;
 
 const dt = new DataTransfer();
 
-export const AppInputFile: React.FC<AppInputFilePropsType> = ({ id, name, onChange, ...restProps }) => {
+export const AppInputFile: React.FC<AppInputFilePropsType> = ({ id, name, onChange, value, ...restProps }) => {
   const [files, setFiles] = useState<File[] | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -67,7 +68,7 @@ export const AppInputFile: React.FC<AppInputFilePropsType> = ({ id, name, onChan
   const label = files?.length
     ? files.map((file) => (
       <p key={ file.name } className={ styles.file }>
-        { file.name }
+        <span>{ file.name }</span>
         <button
           data-id={ file.name }
           type="button"

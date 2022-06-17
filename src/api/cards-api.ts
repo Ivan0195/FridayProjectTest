@@ -36,4 +36,10 @@ export const cardsApi = {
   addCards(payload: CardsAddPayloadType) {
     return api.post<CardsAddPayloadType>(this.endpoints.card, payload);
   },
+  editCard(payload: CardsAddPayloadType) {
+    return api.put<CardsAddPayloadType>(this.endpoints.card, payload);
+  },
+  removeCard(params: CardsPackDeletePayloadType) {
+    return api.delete(this.endpoints.card, { params });
+  },
 };

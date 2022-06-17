@@ -62,6 +62,8 @@ export type CardType = {
   created: string;
   updated: string;
   _id: string;
+  answerImg?: string | null;
+  questionImg?: string | null;
 };
 
 export type CardsResponseType = {

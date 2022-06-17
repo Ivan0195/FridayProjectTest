@@ -15,8 +15,6 @@ import cn from 'classnames';
 import AppInput from '../common/AppInput/AppInput';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import { RoutesEnum } from '../../types/enums/routes';
-import { useNavigate } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 
 export type ModalsType = 'edit' | 'delete';
@@ -37,7 +35,6 @@ const schema = Yup.object<Record<'namePack', Yup.AnySchema>>({
 
 export const Packs = () => {
   const dispatch = useTypedDispatch();
-  const navigate = useNavigate();
 
     const [currentPack, setCurrentPack] = useState<CardPackType | null>(null);
     const [modalStatus, setModalStatus] = useState<boolean>(false);

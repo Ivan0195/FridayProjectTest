@@ -129,6 +129,28 @@ export const addCard = (payload: CardsAddPayloadType['card']) => async (dispatch
     }
 };
 
+export const editCard = (payload: CardsAddPayloadType) => async (dispatch: TypedDispatch) => {
+    dispatch(setLoadingStatus(true));
+    try {
+        await cardsApi.editCard(payload);
+    } catch (e) {
+        const err = e as AxiosError<ErrorResponseType>;
+        handleNetworkError(err);
+        dispatch(setLoadingStatus(false));
+    }
+};
+
+export const removeCard = (id: string) => async (dispatch: TypedDispatch) => {
+    dispatch(setLoadingStatus(true));
+    try {
+        await cardsApi.removeCard({id});
+    } catch (e) {
+        const err = e as AxiosError<ErrorResponseType>;
+        handleNetworkError(err);
+        dispatch(setLoadingStatus(false));
+    }
+};
+
 export const updateCardGrade = (card_id: string, grade: number) => async (dispatch: TypedDispatch) => {
     try {
         const response = await cardsApi.updateCardGrade({card_id, grade});
